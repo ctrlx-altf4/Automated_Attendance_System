@@ -3,6 +3,11 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# models and pickles
+*.yaml
+*.txt
+*.csv
+
 # C extensions
 *.so
 
