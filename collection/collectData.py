@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 #c:/anaconda64/envs/ml_env/Library/etc/haarcascades
-face_classifier = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
+face_classifier = cv2.CascadeClassifier("../etc/EigenFace/haarcascade_frontalface_default.xml")
 
 def face_extractor(img):
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)

@@ -1,11 +1,11 @@
 import cv2
 from sklearn.externals import joblib
 
-face_classifier = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
+face_classifier = cv2.CascadeClassifier("etc/EigenFace/haarcascade_frontalface_default.xml")
 
 model = cv2.face.EigenFaceRecognizer_create()
-model.read('model.yaml')
-label_info = joblib.load('label_info.txt')
+model.read('etc/EigenFace/model.yaml')
+label_info = joblib.load('etc/EigenFace/label_info.txt')
 
 def face_detector(img):
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -34,7 +34,7 @@ while True:
         cv2.putText(image, disp_string, (200,450), cv2.FONT_HERSHEY_COMPLEX, 1, (0,255,0),1)
         cv2.imshow('Face Recognizer',image)
     except:
-        cv2.putText(image, "No face found", (200,450), cv2.FONT_HERSHEY_COMPLEX, 1, (0,255,0),1)
+#        cv2.putText(image, "No face found", (200,450), cv2.FONT_HERSHEY_COMPLEX, 1, (0,255,0),1)
         cv2.imshow('Face Recognizer', image)
     if cv2.waitKey(1)==27:
         break
