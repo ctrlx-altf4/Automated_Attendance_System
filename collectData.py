@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 #c:/anaconda64/envs/ml_env/Library/etc/haarcascades
-face_classifier = cv2.CascadeClassifier("../etc/EigenFace/haarcascade_frontalface_default.xml")
+face_classifier = cv2.CascadeClassifier("etc/EigenFace/haarcascade_frontalface_default.xml")
 
 def face_extractor(img):
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -23,7 +23,7 @@ while True:
         cnt+=1
         face = cv2.resize(face_frame, (200,200))
         face = cv2.cvtColor(face, cv2.COLOR_BGR2GRAY)
-        file = "images/user/user" + str(cnt) + ".jpg"
+        file = "collection/images/user/user" + str(cnt) + ".jpg"
         cv2.imwrite(file, face)
         cv2.imshow('Sample collector', frame)
     else:

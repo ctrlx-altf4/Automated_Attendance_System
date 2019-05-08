@@ -9,7 +9,7 @@ label_info = joblib.load('etc/EigenFace/label_info.txt')
 
 def face_detector(img):
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    faces = face_classifier.detectMultiScale(gray,1.3,5)
+    faces = face_classifier.detectMultiScale(gray,1.1,0)
     
     if faces is():
         return img, []

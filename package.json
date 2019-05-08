@@ -1,0 +1,27 @@
+{
+  "name": "face-recognition",
+  "version": "1.0.0",
+  "description": "Make sure you have images in the \"collection/images/\" folder before you start.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "cd client && npm start",
+    "dev": "concurrently \"npm run server\" \" npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Annmayn/Face-recognition.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Annmayn/Face-recognition/issues"
+  },
+  "homepage": "https://github.com/Annmayn/Face-recognition#readme",
+  "dependencies": {
+    "concurrently": "^4.1.0",
+    "express": "^4.16.4"
+  }
+}
