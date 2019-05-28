@@ -3,13 +3,18 @@ const path = require('path');
 const {spawn} = require('child_process');
 
 const app = express();
-const port = 5000;
+const port = process.env.PORT ||5000;
 
+app.use(express.static('collection'));
 
 app.listen(port, ()=>{
     console.log("Server Started on port")
 })
 
+
+app.post('/images',(req,res)=>{
+    console.log("yaa aayo hai")
+})
 
 app.get('/home', (req, res)=>{
     const data =[
