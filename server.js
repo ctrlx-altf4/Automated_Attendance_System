@@ -3,6 +3,9 @@ const path = require('path');
 const {spawn} = require('child_process');
 const bodyParser = require('body-parser');
 const multer = require('multer');
+
+const mongoose = require('mongoose');
+const db = require('./config/db');
 // const cv = require('opencv4nodejs');
 
 const app = express();
@@ -11,8 +14,14 @@ const port = 5000;
 app.use(express.static('collection'));
 
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '10mb'}));
 app.use(bodyParser.urlencoded({extended:true}));
+
+//connecting our application to mongodb
+mongoose.connect(db.mongoURI,{useNewUrlParser:true}).then(
+    ()=>{ console.log('Database Connected')},
+    err=>{console.log('Can not connect to database '+err)}
+)
 
 //setting up Multer to handle the incoming image
 const storage  = multer.diskStorage({
@@ -31,13 +40,14 @@ app.use(function(req, res, next) {
     next();
   });
 
+
 app.listen(port, ()=>{
     console.log("Server Started on port")
 })
 
 
 app.post('/images',(req,res)=>{
-    console.log(req.body.image);
+    console.log(req.body);
     console.log("yaa aayo hai")
      res.send('got it');    
 })

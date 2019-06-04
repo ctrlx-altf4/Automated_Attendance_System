@@ -7,34 +7,27 @@ class Camera extends Component{
     constructor(){
         super();
         this.state={
-            samplePic:null
+            samplePic:null,
+            imageList:{},
+            counter:0
         }
+        
+        
     }
     setRef = webcam =>{
         this.webcam = webcam;
     };
 
     
-
     capture =()=>{
-        var img = new Image();
-        img.src= this.webcam.getScreenshot();
-            
-        // const imageSrc = this.webcam.getScreenshot();
-        img.onload = function(){
-            
-           var canvas = document.getElementById('loadImage');
-
-           var ctx = canvas.getContext('2d');
-
-           img.width=img.width/4;
-           img.height=img.height/4;
-
-           ctx.width =img.width;
-           ctx.height = img.height;
-
-           ctx.drawImage(img, 0,0,ctx.width,ctx.height);
-        }
+        this.state.counter++;
+        var ul = document.getElementById('loadImage');
+        var img = document.createElement('img');
+        ul.appendChild(img);
+        img.setAttribute('src', this.webcam.getScreenshot());
+        img.setAttribute('height',350/4);
+        img.setAttribute('width',350/4)
+        this.state.imageList["User-"+this.state.counter] =this.webcam.getScreenshot();
         
     };
 
@@ -45,11 +38,14 @@ class Camera extends Component{
         })
         console.log(this.state.samplePic)
 
-        // const fd = new FormData();
-        // fd.append('image',"yes");
-        // console.log(fd);          <!-- khai yo sab kaam nai laagena kina ho>
+        const fd = new FormData();
+        fd.append('image','no');
+        fd.append('yes','no');
 
-        axios.post('http://localhost:5000/images',{'image':this.webcam.getScreenshot()},{
+        // console.log(fd);          <!-- khai yo sab kaam nai laagena kina ho>
+        var yes = {'image':'no', 'no':'yes'};
+
+        axios.post('http://localhost:5000/images',this.state.imageList,{
             onUploadProgress: progressEvent =>{
                 console.log(progressEvent.loaded/progressEvent.total);
             }
@@ -70,8 +66,6 @@ class Camera extends Component{
             <div>
                  <Webcam
                  audio ={false}
-                //  height ={350}
-                //  width = {350}
                  ref ={this.setRef}
                  screenshotFormat = "image/jpeg"
                  videoConstraints = {videoConstraints}
@@ -80,7 +74,7 @@ class Camera extends Component{
                  <button onClick = {this.capture}>Capture Photo</button>
                  <button onClick={this.imageUploadHandler}>Upload Image</button>
                  <br/>
-                 <canvas id="loadImage"></canvas>
+                 <ul id="loadImage"></ul>
 
             </div>
            
