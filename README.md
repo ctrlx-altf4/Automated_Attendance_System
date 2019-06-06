@@ -17,3 +17,12 @@ Note:*
 	'environment.yml' consists of the virtual environment for this project.
 	
 	This code is only for demo purpose and not to be integrated with the main program.
+	
+	
+	
+	To run the code 
+go to the project directory in your terminal and type npm i
+Then go to the client directory and type npm i 
+these two steps installs all the neccessary packages to run the project. 
+
+Now return back to the root(main) project directory and type npm run dev
