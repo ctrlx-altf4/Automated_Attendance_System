@@ -9,16 +9,21 @@ class Camera extends Component{
         this.state={
             samplePic:null,
             imageList:{},
-            counter:0
+            counter:0,
+            value:''
         }
-        
+        this.handleChange = this.handleChange.bind(this);
+       
         
     }
     setRef = webcam =>{
         this.webcam = webcam;
     };
 
-    
+    handleChange(event) {
+        this.setState({value: event.target.value});
+      }
+      
     capture =()=>{
         this.state.counter++;
         var ul = document.getElementById('loadImage');
@@ -37,6 +42,7 @@ class Camera extends Component{
             samplePic: this.webcam.getScreenshot()
         })
         console.log(this.state.samplePic)
+        this.state.imageList["id"]= this.state.value;
 
         // const fd = new FormData();
         // fd.append('image','no');
@@ -71,6 +77,8 @@ class Camera extends Component{
                  videoConstraints = {videoConstraints}
                  />
                  <br/>
+                 <input type="text" name="name"></input>
+                 <input type="text" value={this.state.value} onChange={this.handleChange}></input>
                  <button onClick = {this.capture}>Capture Photo</button>
                  <button onClick={this.imageUploadHandler}>Upload Image</button>
                  <br/>

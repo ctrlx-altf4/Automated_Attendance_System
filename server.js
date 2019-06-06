@@ -55,11 +55,12 @@ cloudinary.config({
 })
 
 app.post('/images',(req,res)=>{
+    console.log(req.body.id);
     var i=1;
     var numImage=Math.min(15,Object.keys(req.body).length);
     function saveImage(){
-        let base64Image1 = req.body["user"+i].split(';base64').pop();
-        cloudinary.uploader.upload(req.body["user"+i],{ public_id: "my_folder/user"+i},function(error, result) {
+       // let base64Image1 = req.body["user"+i].split(';base64').pop();
+        cloudinary.uploader.upload(req.body["user"+i],{ public_id: req.body.id+"/user"+i},function(error, result) {
             i=i+1;
             if (i<=numImage){
                 saveImage();
