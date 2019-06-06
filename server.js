@@ -3,6 +3,8 @@ const path = require('path');
 const {spawn} = require('child_process');
 const bodyParser = require('body-parser');
 const multer = require('multer');
+const fs = require('fs');
+const cloudinary = require('cloudinary').v2;
 
 const mongoose = require('mongoose');
 const db = require('./config/db');
@@ -14,7 +16,7 @@ const port = 5000;
 app.use(express.static('collection'));
 
 
-app.use(bodyParser.json({limit: '10mb'}));
+app.use(bodyParser.json({limit: '100mb'}));
 app.use(bodyParser.urlencoded({extended:true}));
 
 //connecting our application to mongodb
@@ -45,12 +47,72 @@ app.listen(port, ()=>{
     console.log("Server Started on port")
 })
 
+//setting up cloudinary config ..https://cloudinary.com/documentation/node_integration
+cloudinary.config({
+    cloud_name: 'auto-attendance-system',
+    api_key: '835767194917565',
+    api_secret:'AznHw38O8CYqb7K1HneVQ56EB9k'
+})
 
 app.post('/images',(req,res)=>{
-    console.log(req.body);
-    console.log("yaa aayo hai")
-     res.send('got it');    
+    var i=1;
+    var numImage=Math.min(15,Object.keys(req.body).length);
+    function saveImage(){
+        let base64Image1 = req.body["user"+i].split(';base64').pop();
+        cloudinary.uploader.upload(req.body["user"+i],{ public_id: "my_folder/user"+i},function(error, result) {
+            i=i+1;
+            if (i<=numImage){
+                saveImage();
+            }
+        });
+    //     fs.writeFile('images/image'+i+'.png',base64Image1,{encoding: 'base64'},function(err){
+    //         i=i+1;
+    //         if (i<=numImage){
+    //             saveImage();
+    //         }
+    // })
+    }
+    saveImage();
+
+    // var tst='user'+1;
+    // let base64Image1 = req.body[tst].split(';base64').pop();
+    // // cloudinary.uploader.upload(req.body.user1,function(error, result) {});
+    // fs.writeFile('images/image1.png',base64Image1,{encoding: 'base64'},function(err){
+    //     console.log('file 1 created');
+    // })
+    // //  res.send('got it');   
+     
+    // let base64Image2 = req.body.user2.split(';base64').pop();
+    // // cloudinary.uploader.upload(req.body.user2,function(error, result) {});
+    // fs.writeFile('images/image2.png',base64Image2,{encoding: 'base64'},function(err){
+    //     console.log('file 2 created');
+    //     let base64Image3 = req.body.user3.split(';base64').pop();
+    // // cloudinary.uploader.upload(req.body.user3,function(error, result) {});
+    //     fs.writeFile('images/image3.png',base64Image3,{encoding: 'base64'},function(err){
+    //         console.log('file 3 created');
+    //     })
+    // })
+    //  res.send('got it'); 
+     
+    
+    //  res.send('got it'); 
+     
+    // let base64Image4 = req.body.user4.split(';base64').pop();
+    // // cloudinary.uploader.upload(req.body.user4,function(error, result) {});
+    // fs.writeFile('images/image4.png',base64Image4,{encoding: 'base64'},function(err){
+    //     console.log('file 4 created');
+    // })
+    //  res.send('got it'); 
+     
+    // let base64Image5 = req.body.user5.split(';base64').pop();
+    // // cloudinary.uploader.upload(req.body.user5,function(error, result) {});
+    // fs.writeFile('images/image5.png',base64Image5,{encoding: 'base64'},function(err){
+    //     console.log('file 5 created');
+    // })
+    //  res.send('got it');  
 })
+
+
 
 app.get('/home',(req, res)=>{
     const data =[

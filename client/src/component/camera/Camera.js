@@ -27,7 +27,7 @@ class Camera extends Component{
         img.setAttribute('src', this.webcam.getScreenshot());
         img.setAttribute('height',350/4);
         img.setAttribute('width',350/4)
-        this.state.imageList["User-"+this.state.counter] =this.webcam.getScreenshot();
+        this.state.imageList["user"+this.state.counter]=this.webcam.getScreenshot();
         
     };
 
@@ -38,12 +38,12 @@ class Camera extends Component{
         })
         console.log(this.state.samplePic)
 
-        const fd = new FormData();
-        fd.append('image','no');
-        fd.append('yes','no');
+        // const fd = new FormData();
+        // fd.append('image','no');
+        // fd.append('yes','no');
 
         // console.log(fd);          <!-- khai yo sab kaam nai laagena kina ho>
-        var yes = {'image':'no', 'no':'yes'};
+        
 
         axios.post('http://localhost:5000/images',this.state.imageList,{
             onUploadProgress: progressEvent =>{
