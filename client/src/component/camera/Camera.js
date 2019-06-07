@@ -42,7 +42,7 @@ class Camera extends Component{
             samplePic: this.webcam.getScreenshot()
         })
         console.log(this.state.samplePic)
-        this.state.imageList["id"]= this.state.value;
+        // this.state.imageList["id"]= this.state.value;
 
         // const fd = new FormData();
         // fd.append('image','no');
@@ -51,7 +51,7 @@ class Camera extends Component{
         // console.log(fd);          <!-- khai yo sab kaam nai laagena kina ho>
        // const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 
-        axios.post('/api/images',this.state.imageList,{
+        axios.post('http://localhost:5000/api/images',this.state.imageList,{
             onUploadProgress: progressEvent =>{
                 console.log(progressEvent.loaded/progressEvent.total);
             }
