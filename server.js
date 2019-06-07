@@ -54,7 +54,7 @@ cloudinary.config({
     api_secret:'AznHw38O8CYqb7K1HneVQ56EB9k'
 })
 
-app.post('/images',(req,res)=>{
+app.post('/api/images',(req,res)=>{
     console.log(req.body.id);
     var i=1;
     var numImage=Math.min(15,Object.keys(req.body).length);
@@ -115,7 +115,7 @@ app.post('/images',(req,res)=>{
 
 
 
-app.get('/home',(req, res)=>{
+app.get('/api/home',(req, res)=>{
     const data =[
         {id:1, FistName:"Prajwal", LastName:"Pradhan"}
     ];
