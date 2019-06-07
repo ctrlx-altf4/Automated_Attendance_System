@@ -49,7 +49,7 @@ class Camera extends Component{
         // fd.append('yes','no');
 
         // console.log(fd);          <!-- khai yo sab kaam nai laagena kina ho>
-        const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT || 'http://production';
+        const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 
         axios.post(`${API_ENDPOINT}/images`,this.state.imageList,{
             onUploadProgress: progressEvent =>{
