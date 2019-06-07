@@ -14,6 +14,8 @@ const app = express();
 const port = process.env.PORT ||5000;
 
 app.use(express.static('collection'));
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 
 app.use(bodyParser.json({limit: '100mb'}));
