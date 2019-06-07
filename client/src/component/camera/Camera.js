@@ -23,7 +23,7 @@ class Camera extends Component{
     handleChange(event) {
         this.setState({value: event.target.value});
       }
-      
+
     capture =()=>{
         this.state.counter++;
         var ul = document.getElementById('loadImage');
@@ -51,7 +51,7 @@ class Camera extends Component{
         // console.log(fd);          <!-- khai yo sab kaam nai laagena kina ho>
         
 
-        axios.post('http://localhost:5000/images',this.state.imageList,{
+        axios.post('/images',this.state.imageList,{
             onUploadProgress: progressEvent =>{
                 console.log(progressEvent.loaded/progressEvent.total);
             }
@@ -77,7 +77,7 @@ class Camera extends Component{
                  videoConstraints = {videoConstraints}
                  />
                  <br/>
-                 <input type="text" name="name"></input>
+                
                  <input type="text" value={this.state.value} onChange={this.handleChange}></input>
                  <button onClick = {this.capture}>Capture Photo</button>
                  <button onClick={this.imageUploadHandler}>Upload Image</button>
