@@ -6,8 +6,8 @@ class UserDetails extends Component{
     }
     render(){
         return(
-            <input type="text" name="name"></input>
-
+            // <input type="text" name="name"></input>
+            <div></div>
         );
     }
 }
