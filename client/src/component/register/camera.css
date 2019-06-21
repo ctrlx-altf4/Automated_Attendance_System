@@ -1,0 +1,17 @@
+.card{
+    box-shadow: 2px 4px 4px 2px rgba(0, 0, 0, 0.2);
+    /* background-color:#999292; */
+    border-radius:5px;
+    max-height:450px;
+    max-width:450px;
+	margin-left: 50px;
+	margin-top: 50px;
+}
+#button-cap{
+    
+    position: relative;
+    background:transparent;
+    outline:none;
+    font-size:28px;
+    
+}

@@ -1,0 +1,7 @@
+.column{
+    display:grid;
+    padding:5px,5px,5px,5px;
+    grid-template-columns:repeat(2,auto); 
+    /* box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.3); */
+    
+}

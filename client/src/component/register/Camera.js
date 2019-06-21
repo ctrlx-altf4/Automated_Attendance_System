@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import Webcam from 'react-webcam'
 import axios from 'axios'
-
+import './camera.css'
 
 class Camera extends Component{
     constructor(){
@@ -70,16 +70,18 @@ class Camera extends Component{
         }
         return(
             <div>
-                 <Webcam
-                 audio ={false}
-                 ref ={this.setRef}
-                 screenshotFormat = "image/jpeg"
-                 videoConstraints = {videoConstraints}
-                 />
-                 <br/>
                 
-                 <input type="text" value={this.state.value} onChange={this.handleChange}></input>
-                 <button onClick = {this.capture}>Capture Photo</button>
+                <Webcam   
+                    className="card"   
+                    audio ={false}
+                    ref ={this.setRef}
+                    screenshotFormat = "image/jpeg"
+                    videoConstraints = {videoConstraints}
+                />  
+                 <br/>
+                <button id="button-cap" onClick = {this.capture}>Capture Photo</button>  
+                 <input type="text" placeholder="Name" value={this.state.value} onChange={this.handleChange}></input>
+                
                  <button onClick={this.imageUploadHandler}>Upload Image</button>
                  <br/>
                  <ul id="loadImage"></ul>
