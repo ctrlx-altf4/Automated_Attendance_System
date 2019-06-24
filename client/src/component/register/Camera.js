@@ -33,16 +33,22 @@ class Camera extends Component{
         img.setAttribute('height',350/4);
         img.setAttribute('width',350/4)
         this.state.imageList["user"+this.state.counter]=this.webcam.getScreenshot();
+        // this.props.imageList["user"+this.state.counter]= this.webcam.getScreenshot();
         
     };
 
     imageUploadHandler=()=>{
-        console.log('entered');
-        this.setState({
-            samplePic: this.webcam.getScreenshot()
-        })
-        console.log(this.state.samplePic)
-        this.state.imageList["id"]= this.state.value;
+        // console.log('entered');
+        // this.setState({
+        //     samplePic: this.webcam.getScreenshot()
+        // })
+        // console.log(this.state.samplePic)
+
+
+        // this.state.imageList["id"]= this.state.value;
+
+
+        this.props.uploadDataFromParent(this.state.imageList);
 
         // const fd = new FormData();
         // fd.append('image','no');
@@ -51,14 +57,14 @@ class Camera extends Component{
         // console.log(fd);          <!-- khai yo sab kaam nai laagena kina ho>
        // const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 
-        axios.post('/api/images',this.state.imageList,{
-            onUploadProgress: progressEvent =>{
-                console.log(progressEvent.loaded/progressEvent.total);
-            }
-        })
-        .then(res=>{
-            console.log(res)
-        })
+        // axios.post('/api/images',this.state.imageList,{
+        //     onUploadProgress: progressEvent =>{
+        //         console.log(progressEvent.loaded/progressEvent.total);
+        //     }
+        // })
+        // .then(res=>{
+        //     console.log(res)
+        // })
 
     }
 
@@ -79,13 +85,14 @@ class Camera extends Component{
                     videoConstraints = {videoConstraints}
                 />  
                  <br/>
-                <button id="button-cap" onClick = {this.capture}>Capture Photo</button>  
-                 <input type="text" placeholder="Name" value={this.state.value} onChange={this.handleChange}></input>
+                <button id="button-cap" onClick = {this.capture}><i class="fa fa-camera icon"></i></button>  
+                 {/* <input type="text" placeholder="Name" value={this.state.value} onChange={this.handleChange}></input> */}
                 
-                 <button onClick={this.imageUploadHandler}>Upload Image</button>
+                 <button  className='submit-btn' onClick={this.imageUploadHandler}>Upload Image</button>
                  <br/>
                  <ul id="loadImage"></ul>
-
+                
+              
             </div>
            
          );

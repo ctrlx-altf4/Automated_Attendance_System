@@ -2,6 +2,16 @@
     display:grid;
     padding:5px,5px,5px,5px;
     grid-template-columns:repeat(2,auto); 
-    /* box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.3); */
+    /* box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.3);  */
     
+}
+.container{
+    width: 97%;
+ margin-right: 50%; 
+ height: 100%;
+     
+}
+
+.box-container{
+    margin-left: 40px;
 }

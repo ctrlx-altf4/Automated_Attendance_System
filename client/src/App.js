@@ -23,8 +23,8 @@ function App() {
     </switch>
     <div className="App-body">
        {/* <UserDetails></UserDetails> */}
-       <DataCollect/>
-       <Predict/>
+       {/* <DataCollect/>
+       <Predict/> */}
     </div>
     
   </div></Router>

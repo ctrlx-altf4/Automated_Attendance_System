@@ -1,48 +1,90 @@
-.navigation-menu{
-    margin: 0px 0px 5px 0px; 
-    padding:0px;
-    list-style:none;
-}
-.navigation-menu a{
-    text-decoration:none;
-    color:Black;
-    font-family: 'Times New Roman', Times, serif;
-    font-size:1.5vw;
-    font-variant: small-caps;
-    /* padding:10px 20px; */
-    /* display:inline-block;
-    position:relative;
-    transition-duration:0.6s; */
-  }
-.navigation-menu a:hover{
-    background-color: rgb(226, 168, 93)
-}
-ul{
-    margin-left:0;
-    margin-right:0;
-    margin-top:0;
-    margin-left:0;
-    /* background-color:rgb(190, 145, 85); */
-}
-.navigation-menu li{
+.navigation-screen{
+    margin:0;
+    padding:0;
+    text-decoration: none;
     list-style: none;
-    display:inline-block;
+    box-sizing: border-box;
+}
+/* img{
+    height:100%;
+    width:100%;
+} */
 
+.logo{
+    position:absolute;
+    top:40px;
+    left:40px;
+    color:white;
+}
+
+/*========================
+        Navigation
+======================*/
+.navigation-bar{
+    position:absolute;
+    display:inline-block;
+    top:40px;
+    left:65%;
+    color:white;
+    margin-right:0px;
+}
+
+.navigation-bar li{
+    display:inline-block;
+    color:white;
+    overflow-wrap:break-word
     
 }
-#navbar-left{
-    float: left;
+.navigation-bar li a{
+    color:white;
+    margin:10px;
+    text-transform:uppercase;
+    font-size:80%;
+    text-decoration: none;
+    list-style: none;
+   ;
     
 }
-#navbar-right{
-    float: right;
+.navigation-bar li a:hover{
+    border-bottom:1px solid black;
 }
-.navigation-menu{
- /* font-size: calc(10px + 2vmin);  */
-  margin:0px,0px,0px,0px;
-  color: white;
-  height:400px;
-  background-image: url("background.png"); 
-  background-size: cover;
- 
+/*====================================
+    Title
+=====================================*/
+.title{
+    display:inline-block;
+    position:absolute;
+    top:35%;
+    left:28%;
+    color:white;
+}
+.title p{
+    font-size: 3vw;
+    font-weight: 300;
+}
+
+/*========================
+    Explore Button
+==========================*/
+
+.exp-btn{
+    display:inline-block;
+    position:absolute;
+    top:50%;
+    left:48%;
+}
+.exp-btn a{
+    color:white;
+    padding: 5px, 5px,5px, 5px;
+    font-size:3vw;
+    border:1px solid;
+    border-radius: 5px;
+    text-decoration: none;
+}
+.exp-btn a:hover{
+    background: white;
+    color: black;
+}
+.color{
+    display:none;
 }

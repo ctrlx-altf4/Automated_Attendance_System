@@ -1,3 +1,4 @@
 module.exports={
-    mongoURI : "mongodb://localhost:27017/faceRecognitiondb" //local uri for db
+    mongoURI : "mongodb://localhost:27017/attendaneSystem" //local uri for db
+    
 }

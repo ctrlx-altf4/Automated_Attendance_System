@@ -1,34 +1,45 @@
-.container{
-    
-   
-}
+
 .screen{
     margin-right:50px;
     margin-top:50px;
-    position: relative;
+    /* height:150%; */
+    /* position: relative; */
     background-color:#3e3e3e;
     border-radius: 15px;
+    border:1px solid white;
 }
+
+/*====================
+    Form ko Tauko
+=====================*/
 .screen-header{
     display: grid;
-  /* align-items: center; */
-  /* padding: 10px 20px; */
   grid-template-rows:0.2,auto;
-  background: #4d4d4f;
+  background-color: #4d4d4f;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
 
 }
+
+/*========================
+  Form ko Slim body
+=========================*/
 .screen-body{
     display:grid;
+    width:100%;
+    height:90%;
+    position: relative;
     /* grid-template-columns:repeat(2,auto); */
+    background-color: white;
+    box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
 
 }
 
-.modal {
+/* .modal {
     width: 100%;
-    max-width: 100vh;
-    height: 50vh;
+    max-width: 100vw;
+    height: 80vh;
     position: relative;
     top: 50%;
     left: 50%;
@@ -36,31 +47,46 @@
     overflow: hidden;
     background-color: white;
     box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.3);
-  }
-  .modal .modal-product {
+  } */
+
+/*=====================
+    Form ko breast
+=======================*/
+  .modal-design {
     width: 40%;
     height: 90%;
-    float: left;
-    position: relative;
-  }
-  .modal .modal-product .round-shape {
-    width: 125%;
-    height: 150%;
     position: absolute;
-    top: 50%;
-    left: 38%;
-    transform: translate(-50%, -50%);
+  }
+  .round-shape {
+    /* border:1px solid black; */
+    width: 150%;
+    height: 150%;
+    /* width: 150%;
+    height: 150%;
+    position:relative;
+    transform:translate(-40%,-10%); */
+    position: absolute;
+    /* top: 50%; */
+    /* left: 38%; */
+    transform: translate(-40%, -10%);
     border-radius: 50%;
     background-color: #cdb196;
     box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
   }
-  .modal .details{
-    width: 60%;
+
+/*=====================================
+      The Form begins
+==========================================*/
+.form-body{
+    margin-left:40%;
+    margin-right:0;
+    margin-top:0;
+    width: 59%;
     height: 100%;
-    float:right;
-    position:relative;
+    position: absolute;
+    /* border:1px solid black; */
   }
-  .modal .details .details-info{
+  /* .form-details{
     width: 90%;
     height: 85%;
     position: absolute;
@@ -68,12 +94,66 @@
     left: 5%;
     transform: translate(0%, -50%);
 
-  }
+  } */
 
 .input-field{
     display:grid;
     margin:2vh auto;
     padding: 1vh;
     border-radius:5px;
+
 }
-            
+
+/*===========================================
+      Animating placeholder
+=============================================*/
+label{
+  position:relative;
+}
+.input-field>label>input ~span{
+  position:absolute;
+  top:30px;
+  left:5px;
+  color:grey;
+  transition:top 1s ease
+  /* margin-left:100px; */
+}
+.input-field >label> input{
+  padding: 10px 16px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  /* margin-bottom:20px; */
+  margin-top:20px;
+  /* font-family:"Viner Hand ITC", "Comic Sans MS", Arial, Helvetica, sans-serif; */
+  font-size: 1.1vw;
+}
+.input-field>label>input:focus ~ span{
+  top:0px;
+  color:black;
+  font-size:bold;
+ }
+
+.submit-btn{
+  margin-top:10px;
+  border:3px solid white;
+  background-color: #cdb196;
+  width:200px;
+  height:40px;
+  border-radius:30px;
+  font-size: 18px;
+  font-weight: bold;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: all .35s;
+}
+.submit-btn:hover{
+  background: gray;
+  color:White;
+}
+.submit-btn span{
+  opacity: 1;
+  visibility: visible;
+  transition: all .35s;
+}
