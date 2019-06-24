@@ -12,10 +12,8 @@ import Register from './component/register/Register';
 function App() {
   return (
     <Router>
-      <NavBar/>
+      {/* <NavBar/> */}
     <div className="App">
-    
-    {/* <NavBar/> */}
     <switch>
         <Route exact path='/' component={Register}/>
         <Route path = '/signup' component={Register}/>

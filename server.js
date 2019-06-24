@@ -74,8 +74,6 @@ app.listen(port, ()=>{
 
 //------------------------CORS Connection Ends here---------------
 
-
-
 app.post('/api/images',(req,res)=>{
     var numImage=Math.min(15,Object.keys(req.body).length);
     var i=1;
