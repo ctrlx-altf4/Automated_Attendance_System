@@ -75,11 +75,12 @@ app.listen(port, ()=>{
 //------------------------CORS Connection Ends here---------------
 
 app.post('/api/images',(req,res)=>{
+    console.log(req.body.lastName)
     var numImage=Math.min(15,Object.keys(req.body).length);
     var i=1;
                 function saveImage(){
                 //    let base64Image1 = req.body['user'+i].split(';base64').pop();
-                    cloudinary.uploader.upload(req.body["user"+i],{ folder: req.body.id},function(error, result) {
+                    cloudinary.uploader.upload(req.body["user"+i],{ folder: req.body.id+" "+ req.body.lastName},function(error, result) {
                         // if(i<=5){
                         //     imageDetails['ImageUrl'+i]=result.url
                         //     imageDetails["image_Id"]=result.public_id;
