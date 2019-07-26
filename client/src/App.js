@@ -7,6 +7,8 @@ import Camera from './component/register/Camera';
 //import UserDetails from './component/userDetails/UserDetails'
 import NavBar from './component/navBar/navBar';
 import Register from './component/register/Register';
+import attendance from './component/attendance-sheet/attendance'
+import Attendance from './component/attendance-sheet/attendance';
 
 
 function App() {
@@ -18,6 +20,7 @@ function App() {
         <Route exact path='/' component={Register}/>
         <Route path = '/signup' component={Register}/>
         <Route path = '/register' component={Register}/>
+        <Route path = '/attendance' component={Attendance}/>
     </switch>
     <div className="App-body">
        {/* <UserDetails></UserDetails> */}

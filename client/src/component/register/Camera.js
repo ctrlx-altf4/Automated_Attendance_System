@@ -75,8 +75,7 @@ class Camera extends Component{
             facingMode: "user"
         }
         return(
-            <div>
-                
+            <div className="camera">   
                 <Webcam   
                     className="card"   
                     audio ={false}
@@ -85,14 +84,12 @@ class Camera extends Component{
                     videoConstraints = {videoConstraints}
                 />  
                  <br/>
-                <button id="button-cap" onClick = {this.capture}><i class="fa fa-camera icon"></i></button>  
-                 {/* <input type="text" placeholder="Name" value={this.state.value} onChange={this.handleChange}></input> */}
-                
-                 <button  className='submit-btn' onClick={this.imageUploadHandler}>Upload Image</button>
+                 <button id="button-cap" onClick = {this.capture}><i class="fa fa-camera icon"></i></button>  
+               
+                 
+                 {/* <button  className='submit-btn' onClick={this.imageUploadHandler}>Upload Image</button> */}
                  <br/>
-                 <ul id="loadImage"></ul>
-                
-              
+                 <ul id="loadImage"></ul>    
             </div>
            
          );

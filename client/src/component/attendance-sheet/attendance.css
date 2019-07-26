@@ -1,0 +1,40 @@
+.attendance{
+    display:flex;
+    flex-direction: row;
+    height:100%;
+
+}
+/*=======================================
+        Side-bar.css
+===========================================*/
+.sidebar{
+    background-color:red;
+    width:25%;
+    min-height:100vh;
+}
+.sidebar-header{
+    background-color:blue;
+    min-height:30vh;
+}
+
+/*=======================================
+        Sheet.css
+======================================*/
+.sheet-wrapper{
+    width:100%;
+    grid-area:sheet; 
+}
+.sheet{
+    display:flex;
+    flex-direction: column;
+}
+.sheet-header{
+    justify-content: center;
+    height:100%;
+}
+.sheet-body{
+    background:pink;
+   
+}
+
+

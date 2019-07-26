@@ -64,21 +64,18 @@ class Register extends Component{
     render(){
         return(
             <div className="column">
-                {/* <div className="box-container"> */}
-                    <Camera
+              
+                <Camera
                         handleChange ={this.handleChange}
                         handleSubmit = {this.handleSubmit}
                         uploadDataFromParent={this.uploadDataFromParent}
 
                     />
-                {/* </div> */}
-                <UserDetails
+                   <UserDetails
                         handleChange ={this.handleChange}
                         handleSubmit = {this.handleSubmit}
                     />
-            </div>
-               
-            
+            </div>   
         );
       
     }

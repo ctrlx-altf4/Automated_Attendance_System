@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './UserDetails.css'
+import Camera from './Camera';
 
 class UserDetails extends Component{
     state ={
@@ -7,22 +8,21 @@ class UserDetails extends Component{
     }
     render(){
         return(
-        <div className="screen"> 
+        <div className="screen">
             <div className="screen-header">
-                <h1> </h1>
+                <h2> </h2>
             </div>
             <div className="screen-body">
-                <div class="modal">
-                    <div className="modal-design">
-                        <div className="round-shape"></div>
-                    </div>
-                </div>
+                {/* <div class="modal-design">
+                    <div className="round-shape"></div>
+                </div> */}
                 
-                <div className="form-body">
-                    <form onSubmit={this.props.handleSubmit}>
+                <div class="form-body">
+                         <form onSubmit={this.props.handleSubmit}>
                         <div className="input-field">
                             <label>
-                            <input name ="firstName" 
+                             <input className=""
+                                    name ="firstName" 
                                     type="text" value={this.props.firstName}    
                                     onChange={this.props.handleChange}/>
                                     <span>First Name</span>
@@ -58,7 +58,7 @@ class UserDetails extends Component{
                                     <span>Department</span>
                             </label>
                            
-                            {/* <button className="submit-btn" type="submit"><span>Submit</span></button> */}
+                            <button className="submit-btn" type="submit"><span>Submit</span></button>
                         </div> 
                     </form>
                 </div>
