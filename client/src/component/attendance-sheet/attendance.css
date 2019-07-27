@@ -16,6 +16,16 @@
     background-color:blue;
     min-height:30vh;
 }
+button{
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    background-color: transparent;
+    border: transparent;
+}
+button:hover {
+    background-color: white;
+}
 
 /*=======================================
         Sheet.css
