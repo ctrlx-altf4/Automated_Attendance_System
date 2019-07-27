@@ -1,4 +1,5 @@
 import React,{Component} from 'react'
+import './side-bar.css'
 
 
 class Sidebar extends Component{
@@ -13,13 +14,12 @@ class Sidebar extends Component{
         return(
             <div className="sidebar">
                <div className="sidebar-header">
-                   I am the head
+                  
                </div>
-               <hr></hr>
+               
                <div className="sidebar-body">
-                   I am the body
+                  
                </div>
-
             </div>
         )
     }

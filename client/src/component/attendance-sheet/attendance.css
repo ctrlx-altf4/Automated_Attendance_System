@@ -8,14 +8,43 @@
         Side-bar.css
 ===========================================*/
 .sidebar{
-    background-color:red;
+    background-color:#3c3c3c;
     width:25%;
     min-height:100vh;
 }
 .sidebar-header{
-    background-color:blue;
+    background-color:#333333;
     min-height:30vh;
 }
+li{  width: 100%;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    background-color:#3c3c3c;
+    text-decoration: none;
+    list-style-type: none;
+    list-style: none;
+    }
+ul{      
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+        list-style-type: none;
+        text-decoration: none;
+        list-style: none;
+        }
+ul :hover{
+    width: 100%;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+background-color: black;
+}
+
+
 
 /*=======================================
         Sheet.css

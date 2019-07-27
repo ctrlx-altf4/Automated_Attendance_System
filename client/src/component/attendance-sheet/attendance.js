@@ -2,7 +2,8 @@
 import React,{Component} from 'react'
 import Sheet from './sheet';
 import SideBar from './side-bar';
-import  './attendance.css'
+import  './attendance.css';
+import Navbar from './adminNavbar'
 
 
 class Attendance extends Component{
@@ -22,6 +23,7 @@ class Attendance extends Component{
                 {/* <div className="sheet"> */}
                     <Sheet/>
                 {/* </div> */}
+                <Navbar/>
                 
                
                 
