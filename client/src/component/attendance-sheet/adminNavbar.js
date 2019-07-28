@@ -1,3 +1,22 @@
 import React,{Component} from 'react'
 
-class
+import  './attendance.css'
+
+
+class AdminNavbar extends Component{
+    constructor(props){
+        super(props);
+        this.state={
+
+        }
+    }
+
+    render(){
+        return(
+           <div className="adminNavbar">
+               I am navigation
+           </div>
+        )
+    }
+}
+export default AdminNavbar

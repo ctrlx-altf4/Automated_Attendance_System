@@ -4,6 +4,14 @@
     height:100%;
 
 }
+/*========================================
+        adminNavbar.css
+========================================*/
+.adminNavbar{
+    background-color:#3c8dbc;
+    height: 8vh;
+}
+
 /*=======================================
         Side-bar.css
 ===========================================*/
@@ -16,14 +24,14 @@
     background-color:blue;
     min-height:30vh;
 }
-button{
+.sidebar-button{
     width: 100%;
     padding-top: 20px;
     padding-bottom: 10px;
     background-color: transparent;
     border: transparent;
 }
-button:hover {
+.sidebar-button:hover {
     background-color: white;
 }
 

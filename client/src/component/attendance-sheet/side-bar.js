@@ -1,6 +1,7 @@
 import React,{Component} from 'react'
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 
+
 class Sidebar extends Component{
     constructor(props){
         super(props);
@@ -14,6 +15,7 @@ class Sidebar extends Component{
     }
 
     render(){
+       
         return(
             <Router>
             <div className="sidebar">
@@ -23,9 +25,9 @@ class Sidebar extends Component{
                <hr></hr>
                <div className="sidebar-body">
                    <ul>
-                       <button onClick={()=>this.props.updateUI(2)}>Add</button>
-                       <button onClick={()=>this.props.updateUI(3)}>Add</button>
-                       <button onClick={()=>this.props.updateUI(4)}>Add</button>
+                       <button  className="sidebar-button" onClick={()=>this.props.updateUI(2)}>Add</button>
+                       <button className="sidebar-button"  onClick={()=>this.props.updateUI(3)}>Add</button>
+                       <button className="sidebar-button" onClick={()=>this.props.updateUI(4)}>Add</button>
                     
                    </ul>
                
