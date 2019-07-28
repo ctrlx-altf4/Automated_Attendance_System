@@ -11,15 +11,11 @@ class Navbar extends Component{
 
     render(){
         return(
-   <nav>
-   <div class="navbar">
-    
-  <a class="active" href="#home">Home</a>
-  <a href="#news">News</a>
-  <a href="#contact">Contact</a>
-  <a href="#about">About</a>
-    </div>
-  </nav>
+ 
+    <div className="topnav">
+  <h3 className="navbar-contents">Tribhuwan University Institute of Engineering Pulchowk Campus, Lalitpur</h3>
+</div>
+  
         )
     }
 }
