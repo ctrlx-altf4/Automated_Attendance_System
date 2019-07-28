@@ -1,9 +1,7 @@
 import React,{Component} from 'react'
+import './adminNavbar.css';
 
-import  './attendance.css'
-
-
-class AdminNavbar extends Component{
+class Navbar extends Component{
     constructor(props){
         super(props);
         this.state={
@@ -13,10 +11,11 @@ class AdminNavbar extends Component{
 
     render(){
         return(
-           <div className="adminNavbar">
-               I am navigation
-           </div>
+    <div className="topnav">
+  <h3 className="navbar-contents">Tribhuwan University Institute of Engineering Pulchowk Campus, Lalitpur</h3>
+</div>
+  
         )
     }
 }
-export default AdminNavbar
+export default Navbar

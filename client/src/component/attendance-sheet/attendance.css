@@ -16,23 +16,104 @@
         Side-bar.css
 ===========================================*/
 .sidebar{
-    background-color:red;
-    width:25%;
+    background-color:#3c3c3c;
+    width:20%;
     min-height:100vh;
+   
 }
 .sidebar-header{
-    background-color:blue;
+    background-color:#282828;
     min-height:30vh;
+}
+.search-container{
+    text-align: center;
+    padding-top: 100px;
+    
+}
+.search-bar{
+    padding-top: 9px;
+    padding-bottom: 9px;
+    border-radius: 6px;
+    background-color: #505050;
+    border: none;
+}
+.main-button{
+
+    width: 100%;
+    border: none;
+    margin-top: 20%;
+    color: white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #202020;
+   
 }
 .sidebar-button{
     width: 100%;
     padding-top: 20px;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
     background-color: transparent;
     border: transparent;
+    color: grey;
+    text-align: left;
+  padding-left: 25px;
+}
+.sidebar-top{
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: transparent;
+    border: transparent;
+    color: white;
+    text-align: left;
+    padding-left: 25px;
 }
 .sidebar-button:hover {
-    background-color: white;
+    background-color: #505050;
+    color:white;
+    width: 100%;
+}
+.sidebar-button::selection {
+    border:none;
+    background-color: #505050;
+    color:white;
+    width: 100%;
+}
+.icon{
+   font-size: 24px;
+}
+
+.dropbtn {
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: transparent;
+    border: transparent;
+    color: grey;
+    text-align: left;
+  padding-left: 25px;
+  }
+
+  .dropdown-content {
+    display: none;
+    z-index: 1;
+  }
+  
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {
+    background-color: #505050;
+    width: 100%;
+}
+.sidebar-ul{
+    padding-inline-start: 0px;
+    padding-inline-end: 0px;
 }
 
 /*=======================================
@@ -54,5 +135,61 @@
     background:pink;
    
 }
+.box{
+   float: left;
+    margin-top: 50px;
+    margin-left: 30px;
+    height: 18%;
+    background-color: #5F9EA0;
+    text-align: left;
+    width: 255px;
+    color: white;
+}
+.boax{
+    width: 100%;
+  padding-top: 5%;
+   background-color: #00868B;
+   border: none;
+   padding-bottom: 5%;
+}
+.m-box{
+    float: left;
+    margin-top: 50px;
+    margin-left: 30px;
+   height: 350px;
+    background-color: #A8A8A8;
+    text-align: center;
+    width: 60%;
+}
+.box-button{
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: transparent;
+    border: transparent;
+}
+.box-button:hover{
+    background-color: #505050;
+}
 
+.box-button1{
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: transparent;
+    border: transparent;
+    color: white;
+}
+.box-button1:hover{
+    background-color: #505050;
+}
+.last-box{
+    float: left;
+    margin-top: 50px;
+    margin-left: 40px;
+   height: 350px;
+    background-color: #787878;
+    text-align: center;
+    width: 30%;
+}
 
