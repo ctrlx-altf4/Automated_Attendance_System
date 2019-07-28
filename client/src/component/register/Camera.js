@@ -87,7 +87,7 @@ class Camera extends Component{
                  <button id="button-cap" onClick = {this.capture}><i class="fa fa-camera icon"></i></button>  
                
                  
-                 {/* <button  className='submit-btn' onClick={this.imageUploadHandler}>Upload Image</button> */}
+                 <button  className='submit-btn' onClick={this.imageUploadHandler}>Upload Image</button>
                  <br/>
                  <ul id="loadImage"></ul>    
             </div>

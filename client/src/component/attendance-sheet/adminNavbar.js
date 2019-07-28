@@ -11,7 +11,6 @@ class Navbar extends Component{
 
     render(){
         return(
- 
     <div className="topnav">
   <h3 className="navbar-contents">Tribhuwan University Institute of Engineering Pulchowk Campus, Lalitpur</h3>
 </div>

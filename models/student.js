@@ -25,14 +25,10 @@ var student = new schema({
     department:{
         type:String,
         required:true
-    },
-    imageRef:{
-        type:String,
-        required:true
     }
 },{
     collection: 'Students'
 }
-)
+);
 
 module.exports= mongoose.model('student', student)
