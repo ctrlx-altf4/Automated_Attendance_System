@@ -64,17 +64,17 @@ class Register extends Component{
     render(){
         return(
             <div className="column">
-              
+              <div className="box-container">
                 <Camera
                         handleChange ={this.handleChange}
                         handleSubmit = {this.handleSubmit}
                         uploadDataFromParent={this.uploadDataFromParent}
 
-                    />
+                    /></div> <div className="container">
                    <UserDetails
                         handleChange ={this.handleChange}
                         handleSubmit = {this.handleSubmit}
-                    />
+                    /></div>
             </div>   
         );
       

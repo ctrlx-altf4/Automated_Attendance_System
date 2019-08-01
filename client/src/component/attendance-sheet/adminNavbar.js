@@ -13,7 +13,7 @@ class Navbar extends Component{
         return(
  
     <div className="topnav">
-  <h3 className="navbar-contents">Tribhuwan University Institute of Engineering Pulchowk Campus, Lalitpur</h3>
+  <h3 className="navbar-contents"></h3>
 </div>
   
         )
