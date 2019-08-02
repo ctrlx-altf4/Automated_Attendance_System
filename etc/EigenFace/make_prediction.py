@@ -7,7 +7,9 @@ import os
 import sys
 from os import listdir
 from os.path import join, isfile, exists
-face_classifier = cv2.CascadeClassifier("etc/haarcascade_frontalface_default.xml")
+
+root_directory = "C:/Users/hp/Desktop/Project/Neema/Face-recognition/etc/EigenFace"
+face_classifier = cv2.CascadeClassifier(root_directory+"/etc/haarcascade_frontalface_default.xml")
 
 def face_detector(img):
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -22,8 +24,12 @@ def face_detector(img):
         roi = cv2.resize(roi, (200,200))
     return img, roi
 
-cap = cv2.VideoCapture(0)
-model = EigenFace()
+try:
+    cap = cv2.VideoCapture(0)
+except:
+    print('Error opening camera')  
+
+model = EigenFace(root_dir="C:/Users/hp/Desktop/Project/Neema/Face-recognition/etc/EigenFace")
 model.loadModel()
 
 attendance_date = datetime.datetime.now().strftime("%Y-%m-%d")
@@ -33,14 +39,15 @@ t1 = time.time()
 t2 = time.time()
 
 #runtime value from console
-runtime = int(sys.argv[1])
+#runtime = int(sys.argv[1])
+runtime = 5
 
 #Create missing directories
-if not os.path.exists("tmp"):
-    os.makedirs("tmp")
-if not os.path.exists("tmp/"+attendance_date):
-    os.makedirs("tmp/"+attendance_date)
-    
+if not os.path.exists(join(root_directory,"tmp")):
+    os.makedirs(join(root_directory,"tmp"))
+if not os.path.exists(join(root_directory, "tmp", attendance_date)):
+    os.makedirs(join(root_directory, "tmp", attendance_date))
+
 while t2-t1 < runtime:
     ret, frame = cap.read()
     image, face = face_detector(frame)
@@ -48,15 +55,16 @@ while t2-t1 < runtime:
     if len(face)!=0:
         y_pred = model.image_predict(face)
         
-        if not os.path.exists("tmp/"+attendance_date+"/"+y_pred):
-            os.makedirs("tmp/"+attendance_date+"/"+y_pred)
+        if not os.path.exists(join(root_directory,"tmp",attendance_date,y_pred)):
+            os.makedirs(root_directory+"/tmp/"+attendance_date+"/"+y_pred)
         #set to 1 if not already present otherwise increase count
         try:
             predictedNames[y_pred]+=1
         except:
             predictedNames[y_pred]=1
 
-        path_to_image = os.path.join('tmp',attendance_date,y_pred,datetime.datetime.now().strftime("%H-%M-%S-%f")+'.png')
+        path_to_image = os.path.join(root_directory,'tmp',attendance_date,y_pred,datetime.datetime.now().strftime("%H-%M-%S-%f")+'.png')
+        
         print(t2-t1)
         print(path_to_image)
         if predictedNames[y_pred]<=10:
@@ -73,12 +81,12 @@ cv2.destroyAllWindows()
 
 #CREATE JSON OF THE ATTENDANCE
 
-if not os.path.exists("tmp/json"):
-    os.makedirs("tmp/json")
+if not os.path.exists(root_directory+"/tmp/json"):
+    os.makedirs(root_directory+"/tmp/json")
 
 json_list = []
-load_root = join(os.getcwd(), "tmp")
-save_root = join(load_root, "json")
+load_root = join(root_directory, "tmp")
+save_root = join(root_directory, "tmp", "json")
 
 for num,dirr in enumerate(listdir(join(load_root, attendance_date))):
     user_json = {}
