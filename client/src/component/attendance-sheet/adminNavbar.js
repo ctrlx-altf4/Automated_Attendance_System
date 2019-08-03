@@ -11,7 +11,6 @@ class Navbar extends Component{
 
     render(){
         return(
- 
     <div className="topnav">
   <h3 className="navbar-contents"></h3>
 </div>

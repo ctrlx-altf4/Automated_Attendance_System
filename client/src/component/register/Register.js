@@ -31,7 +31,7 @@ class Register extends Component{
     }
    uploadDataFromParent =(ImageList)=>{
        this.state.imageList=ImageList;
-       this.state.imageList["id"]= this.state.firstName;
+       this.state.imageList["firstName"]= this.state.firstName;
        this.state.imageList["lastName"]= this.state.lastName;
        this.state.imageList["email"]= this.state.email;
        this.state.imageList["contact"]= this.state.contact;

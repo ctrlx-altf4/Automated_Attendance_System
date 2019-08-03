@@ -76,124 +76,87 @@ app.listen(port, ()=>{
 
 app.post('/api/images',(req,res)=>{
     console.log(req.body.lastName)
-    var numImage=Math.min(15,Object.keys(req.body).length);
+    var numImage=Math.min(15,Object.keys(req.body).length-6);
     var i=1;
-                function saveImage(){
-                //    let base64Image1 = req.body['user'+i].split(';base64').pop();
-                    cloudinary.uploader.upload(req.body["user"+i],{ folder: req.body.id+" "+ req.body.lastName},function(error, result) {
-                        // if(i<=5){
-                        //     imageDetails['ImageUrl'+i]=result.url
-                        //     imageDetails["image_Id"]=result.public_id;
-                        //     studentDetails["imageRef"] = imageDetails["image_Id"];
-                        //     console.log(result.public_id);
-                        // }
-                        i=i+1;
-                        if (i<=numImage){
-                            saveImage();
-                        }
-                        
-                    })
-                }
+    function saveImage(){
+        let base64Image = req.body["user"+i].split(';base64').pop();
+        var dir = './images/'+ req.body.firstName +" "+ req.body.lastName;
+        if(!fs.existsSync(dir)){
+            fs.mkdirSync(dir);
+        }
+        fs.writeFile(path.join(dir,"image"+i+".png"), base64Image, 'base64', function(err) {
+            if(err)
+                console.log(err);
+          });
+        cloudinary.uploader.upload(req.body["user"+i],{ folder: req.body.firstName+" "+ req.body.lastName},function(error, result) {
+            i=i+1;
+            if (i<=numImage){
                 saveImage();
-    // try{
-    //     var duplicateChecker ={
-    //         ID: req.body.id,
+            }    
+         })
+    }
+    saveImage();
+          
+                var i=1;
+                var studentDetails={
+                    firstName: req.body.firstName,
+                    lastName: req.body.lastName,
+                    email: req.body.email,
+                    contact: req.body.contact,
+                    address: req.body.address,
+                    department: req.body.department
+                }
+
+const StudentModel = new studentModel(studentDetails);
+StudentModel.save();
+                //     /* commented only for heroku*/
+                //         //  /************ Saving to Database ***************/  //
+                //    studentModel.create(studentDetails,(err,created)=>{
+                //                 console.log('created');
+                //         })
+ 
+    
+})
+
+
+
+app.get('/retrieval',(req, res)=>{
+    studentModel.find(function(err,data){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.json(data);
+        }
+    })
+    // const data = [{
+    //     name: 'Tanner Linsley',
+    //     age: 26,
+    //     friend: {
+    //       name: 'Jason Maurer',
+    //       age: 23,
     //     }
-    //     // console.log(req.body.lastName);
-    //     // console.log(req.body.email);
-    //     // console.log(req.body.address);
-    //     // console.log(req.body.contact)
-    //     // console.log(req.body.department);
-    //     imageModel.find({image_Id : duplicateChecker.ID},(err,callback)=>{
-    //         //Checking for error
-    //         if(err){
-    //             res.json({
-    //                 err:err,
-    //                 message: 'Error in uploading'
-    //             })
-    //         }
-    //         else if(callback.length>=1){
-    //             res.json({
-    //                 message: 'The data already exists'
-    //             })
-    //         }
-    //         else{
-    //             var i=1;
-    //             var imageDetails={
-    //                 // image_Id:'fuck off'
-    //             };
-    //             var studentDetails={
-    //                 firstName: req.body.firstName,
-    //                 lastName: req.body.lastName,
-    //                 email: req.body.email,
-    //                 contact: req.body.contact,
-    //                 address: req.body.address,
-    //                 department: req.body.department
-    //             }
-    //             var numImage=Math.min(15,Object.keys(req.body).length);
-    //             function saveImage(){
-    //             //    let base64Image1 = req.body['user'+i].split(';base64').pop();
-    //                 cloudinary.uploader.upload(req.body["user"+i],{ folder: req.body.id},function(error, result) {
-    //                     if(i<=5){
-    //                         imageDetails['ImageUrl'+i]=result.url
-    //                         imageDetails["image_Id"]=result.public_id;
-    //                         studentDetails["imageRef"] = imageDetails["image_Id"];
-    //                         console.log(result.public_id);
-    //                     }
-    //                     i=i+1;
-    //                     if (i<=numImage){
-    //                         saveImage();
-    //                     }
-                        
-    //                 })
-
-    //                 /* commented only for heroku*/
-    //                 // if(i>5){
-    //                 //     //  /************ Saving to Database ***************/  //
-    //                 //     imageModel.create(imageDetails,(err,created)=>{
-    //                 //         console.log('created');
-    //                 //         // if(err){
-    //                 //         //     res.json({
-    //                 //         //         err:err,
-    //                 //         //         message: 'Database save garne belaa kataa jhundiyo'
-    //                 //         //     })
-    //                 //         // }
-    //                 //         // else{
-    //                 //         //     res.json({
-    //                 //         //         create:created,
-    //                 //         //         message: "La Database maa ni save vayexa. achchammai vo baa"
-    //                 //         //     })
-    //                 //         // }
-    //                 //     });
-    //                 //     studentModel.create(studentDetails,(err,created)=>{
-    //                 //             console.log('created');
-    //                 //     })
-    //                 // }
-    //             }
-    //              saveImage();
-    //             // var tst='user'+1;
-    //             // let base64Image1 = req.body[tst].split(';base64').pop();
-    //             // // cloudinary.uploader.upload(req.body.user1,function(error, result) {});
-    //             // fs.writeFile('images/image1.png',base64Image1,{encoding: 'base64'},function(err){
-    //             //     console.log('file 1 created');
-    //             // })
-    //             // //  res.send('got it');     
-    //         }                  
-    //     })     
-    // } catch(exceptions){
-    //     console.log(exceptions);
-    // }   
+    //   },{
+    //     name: 'Tysome more',
+    //     age: 20,
+    //     friend: {
+    //       name: 'Jared khan',
+    //       age: 21,
+    //     }
+    //   }]
+    // res.send(data);
 })
-
-
-
-app.get('/api/home',(req, res)=>{
-    const data =[
-        {id:1, FistName:"Prajwal", LastName:"Pradhan"}
-    ];
-    res.send(data);
+app.get('/todaysAttendance',(req,res)=>{
+    const data = {
+        'Krimesh':{
+            status:'p',
+        },
+        'prajwal':{
+            status:'p'
+        }
+    }
+    res.json(data);
 })
-
 app.get('/predict',(req,res)=>{
    function runScript(){
     console.log("no");

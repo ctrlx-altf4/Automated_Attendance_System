@@ -4,6 +4,14 @@
     height:100%;
 
 }
+/*========================================
+        adminNavbar.css
+========================================*/
+.adminNavbar{
+    background-color:#3c8dbc;
+    height: 8vh;
+}
+
 /*=======================================
         Side-bar.css
 ===========================================*/
@@ -42,6 +50,7 @@
     width: 90%;
 }
 .main-button{
+
     width: 100%;
     border: none;
     margin-top: 10%;
@@ -105,6 +114,7 @@
     text-decoration: none;
     display: block;
   }
+
   
   .dropdown-content a:hover {background-color: #ddd;}
   
@@ -115,6 +125,8 @@
       display:block;
   }
 
+
+r
 .sidebar-ul{
     padding-inline-start: 0px;
     padding-inline-end: 0px;

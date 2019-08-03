@@ -6,6 +6,7 @@ import  './attendance.css';
 import Navbar from './adminNavbar'
 
 
+
 class Attendance extends Component{
     constructor(props){
         super(props);
@@ -19,7 +20,7 @@ class Attendance extends Component{
         this.setState({
             sheetUI:num
         })
-        console.log(this.state.sheetUI);
+        
     }
 
     render(){
@@ -29,6 +30,7 @@ class Attendance extends Component{
                  <Navbar/>
             <div className="attendance">
                    
+
                     <SideBar
                         updateUI ={this.updateUI}
                     />
@@ -36,8 +38,10 @@ class Attendance extends Component{
                         sheetUI ={this.state.sheetUI}
                     />
                     </div>
+
             </div>
         )
     }
+    
 }
 export default Attendance

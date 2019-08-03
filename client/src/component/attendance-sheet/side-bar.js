@@ -2,6 +2,7 @@ import React,{Component} from 'react'
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import face from './face.jpg';
 
+
 class Sidebar extends Component{
     constructor(props){
         super(props);
@@ -29,6 +30,7 @@ class Sidebar extends Component{
     //   }
 
     render(){
+       
         return(
             <Router>
             <div className="sidebar">
@@ -46,6 +48,7 @@ class Sidebar extends Component{
                </div>
                
                <div className="sidebar-body">
+
                    <ul className="sidebar-ul">
                    <button className="sidebar-button" onClick={()=>this.props.updateUI(2)}><i className="fa fa-dashboard"></i>&nbsp;&nbsp; Dashboard</button>
                       <div className="dropdown">
@@ -62,6 +65,7 @@ class Sidebar extends Component{
                        <button className="sidebar-button" onClick={()=>this.props.updateUI(2)}><i className="fas fa-user"></i>&nbsp;&nbsp; Profile</button>
                        <button className="sidebar-button" onClick={()=>this.props.updateUI(1)}><i className="fa fa-sign"></i>&nbsp;&nbsp; Log Out</button>
                        
+
                     
                    </ul>
                

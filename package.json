@@ -30,7 +30,7 @@
     "multer": "^1.4.1",
     "react-gesture-gallery": "^1.0.0",
     "react-gesture-responder": "^2.1.0",
-    "react-icons": "^3.7.0",
-    "react-minimal-pie-chart": "^5.0.0"
+    "react-table": "^6.10.0"
+
   }
 }
