@@ -13,9 +13,6 @@ class UserDetails extends Component{
                 <h2> </h2>
             </div>
             <div className="screen-body">
-                {/* <div class="modal-design">
-                    <div className="round-shape"></div>
-                </div> */}
                 
                 <div class="form-body">
                          <form onSubmit={this.props.handleSubmit}>

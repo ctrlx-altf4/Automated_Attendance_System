@@ -1,7 +1,13 @@
 import React,{Component} from 'react'
+
+import Register from '../register/Register';
+import logop from './logop.png';
+import PieChart from 'react-minimal-pie-chart'
+
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 import axios from 'axios';
+
 
 
 class Sheet extends Component{
@@ -143,21 +149,31 @@ class Sheet extends Component{
         else if(this.props.sheetUI===2){
             return(
                 <div>
+                    <div className="navline">
+                    {/* <img className="tulogo" src={tuLogo}/> */}
+                        {/* <h1>&nbsp;&nbsp;&nbsp;&nbsp;Tribhuwan University Institute of Engineering Pulchowk Campus, Lalitpur</h1> */}
+                        </div >
                 <div className="box">
-                 <h1>  BCT </h1>
+                 <h1> &nbsp;&nbsp; BCT </h1>
                    <button className="boax">
                    more information
                 </button>
                 </div>
     
                 <div className="box">
-                  <h1> BEX </h1>
+                  <h1>&nbsp;&nbsp; BEX </h1>
                    <button className="boax">
                    More Information 
                 </button>
                 </div>
                 <div className="box">
-                  <h1> BEL </h1>
+                  <h1> &nbsp;&nbsp;BEL </h1>
+                   <button className="boax">
+                   More Information 
+                </button>
+                </div>
+                <div className="box">
+                  <h1> &nbsp;&nbsp;BCE </h1>
                    <button className="boax">
                    More Information 
                 </button>
@@ -165,9 +181,18 @@ class Sheet extends Component{
                 <div>
                 <div className="m-box">
                    <h1> Today's Attendance </h1>
-                  <button className="box-button1">  BCT{(total-count)/total*100}% </button>
-                  <button className="box-button">  BEX 70% </button>
-                   <button className="box-button"> BEL 30% </button>
+                   <PieChart className="chart"
+                 data={[
+                 { title: 'One', value: 10, color: '#E38627' },
+                   { title: 'Two', value: 15, color: '#C13C37' },
+                 { title: 'Three', value: 20, color: '#6A2135' },
+                 { title: 'Three', value: 15, color: '#6A4565' },
+                   ]}
+                />
+                  <button className="box-button1"> <h3> BCT 80%</h3> </button>
+                  <button className="box-button"> <h3> BEX 70% </h3></button>
+                   <button className="box-button"><h3> BEL 30%</h3> </button>
+                   <button className="box-button"><h3> BCE 30%</h3> </button>
                 </div>
                 <div className="last-box">
                <h1>BCT</h1>
@@ -178,6 +203,10 @@ class Sheet extends Component{
 
                 </div>
                 </div>
+                <div className="row">
+                    <img className="tulogo" src={logop}/>
+                        <h3>Tribhuwan University Institute of Engineering Pulchowk Campus, Lalitpur</h3>
+                        </div>
                  </div>
             )
         }
@@ -198,6 +227,7 @@ class Sheet extends Component{
             //Today's Attendance
             return(
                 <div>
+
                     <p>{this.state.date}</p>
                     <p>Present Percentage: {(total-count)/total*100}%</p>
                     <ReactTable

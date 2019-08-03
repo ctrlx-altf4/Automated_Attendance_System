@@ -1,9 +1,16 @@
 .column{
-    display:flex;
-    flex-direction: column;
-    box-sizing:border-box;
+    display:grid;
+   margin-top: 5%;
+    grid-template-columns:repeat(2,auto); 
+}
+
+.container{
+ width: 60%;
+ margin-right: 40%; 
+ height: 90%;
+     
 }
 
 .box-container{
-    margin-left: 40px;
+    margin-left: 30%;
 }
