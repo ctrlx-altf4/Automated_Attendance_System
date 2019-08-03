@@ -21,7 +21,7 @@ class Sheet extends Component{
             date:date,
             stat:null
       }
-      console.log(date);
+      this.renderEditable = this.renderEditable.bind(this);
 
     }
     componentDidMount(){
@@ -43,23 +43,42 @@ class Sheet extends Component{
        
         
     }
+    renderEditable(cellInfo) {
+        console.log('po')
+        return (
+          <div
+            
+            contentEditable
+            suppressContentEditableWarning
+            onBlur={e => {
+              const present = [...this.state.present];
+              present[cellInfo.index][cellInfo.column.id] = e.target.innerHTML;
+              this.setState({ present });
+            }}
+            dangerouslySetInnerHTML={{
+              __html: this.state.present[cellInfo.index][cellInfo.column.id]
+            }}
+          />
+        );
+      }
     
     render(){
-        // var count=0;
-        // var total= this.state.present.length;
-        // // console.log(this.state.present.length);
-        // console.log(total);
-        // this.state.present.map(statDeterminer);
-        // function statDeterminer(obj){
-        //     if(obj['status']=='A'){
-        //         count++;
-        //     }  
-        // }
+        var count=0;
+        var total= this.state.present.length;
+        // console.log(this.state.present.length);
+        console.log(total);
+        this.state.present.map(statDeterminer);
+        function statDeterminer(obj){
+            if(obj['status']=='A'){
+                count++;
+            }  
+        }
 
           const presentColumns=[
             {
-                Header: 'Name',
-                accessor: 'name' // String-based value accessors!
+                Header:'Name',
+                accessor: 'name',
+                Cell:this.renderEditable, 
               }, 
               {
                 getProps: (state, rowInfo) => {
@@ -67,7 +86,8 @@ class Sheet extends Component{
                       return {
                         style: {
                           background:
-                            rowInfo.row.status === 'A' ? "red" : "green"
+                            rowInfo.row.status === 'A'? "red" : "green",
+                            
                         }
                       };
                     } else {
@@ -75,7 +95,10 @@ class Sheet extends Component{
                     }
                   },
                 Header: 'status',
-                accessor: 'status' // String-based value accessors!
+                accessor: 'status',
+                width:50,
+                Cell:this.renderEditable,
+               
               }, 
           ]
        
@@ -100,6 +123,7 @@ class Sheet extends Component{
             Header: 'department',
             accessor: 'department',
           }]
+        console.log(this.state.present);
         if(this.props.sheetUI===1){
             return(
                 <div className="sheet-wrapper">
@@ -141,7 +165,7 @@ class Sheet extends Component{
                 <div>
                 <div className="m-box">
                    <h1> Today's Attendance </h1>
-                  <button className="box-button1">  BCT 80% </button>
+                  <button className="box-button1">  BCT{(total-count)/total*100}% </button>
                   <button className="box-button">  BEX 70% </button>
                    <button className="box-button"> BEL 30% </button>
                 </div>
@@ -160,9 +184,12 @@ class Sheet extends Component{
         else if(this.props.sheetUI===3){
             return(
                 <div>
+                    <h1>  BCT IV/II</h1>
                     <ReactTable
                         data={this.state.data}
                         columns={dataColumns}
+                        defaultPageSize={10}
+                        className="-striped -highlight"
                     />
                 </div>
             )
@@ -172,10 +199,13 @@ class Sheet extends Component{
             return(
                 <div>
                     <p>{this.state.date}</p>
-                    {/* <p>Present Percentage: {(total-count)/total*100}%</p> */}
+                    <p>Present Percentage: {(total-count)/total*100}%</p>
                     <ReactTable
                         data={this.state.present}
                         columns={presentColumns}
+                        defaultPageSize={10}
+                        className="-striped -highlight"
+
                     />
                 </div>
 

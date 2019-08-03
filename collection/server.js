@@ -28,7 +28,7 @@ app.get('/predict',(req,res)=>{
     console.log("no");
     return spawn('python',[
         "-u",
-        "C:/Users/hp/Desktop/Project/Neema/Face-recognition/make_prediction.py"
+        "C:/Users/hp/Desktop/Project/Neema/Face-recognition/etc/EigenFace/make_prediction.py"
         // path.join(__dirname,'script.py'),          
     ]);
     
@@ -42,12 +42,12 @@ app.get('/predict',(req,res)=>{
     res.send();
 })
 
-app.get('/collect',(req,res)=>{
+app.get('/train',(req,res)=>{
     function runScript(){
         console.log("collect");
         return spawn('python',[
             "-u",
-            "C:/Users/hp/Desktop/Project/Neema/Face-recognition/collection/script.py"
+            "C:/Users/hp/Desktop/Project/Neema/Face-recognition/etc/EigenFace/train_model.py"
             // path.join(__dirname,'script.py'),          
         ]);
         

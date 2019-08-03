@@ -26,7 +26,7 @@ var imageInfo = new schema({
         require:true
     },
 },{
-    collection:'omages'
+    collection:'images'
 }
 )
 

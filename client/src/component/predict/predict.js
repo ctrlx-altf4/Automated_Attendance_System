@@ -13,7 +13,7 @@ class Predict extends Component{
     }
  
     make_prediction_py = (e)=>{
-        fetch('/predict');
+        fetch('/train');
     }
 
     render(){

@@ -14,12 +14,12 @@ class DataCollect extends Component{
         // .then(datas=> this.setState({datas}, ()=>{console.log('fetched', datas)}));
     }
     data_collect_py = (e)=>{
-        fetch('/collect');
+        fetch('/predict');
     }
     render(){
         return(
             <div>
-                <button onClick={this.data_collect_py}>Collect</button>
+                <button onClick={this.data_collect_py}>la esle</button>
                 <script>
                     const make_prediction_py()=> console.log("fuck");
                 </script>
