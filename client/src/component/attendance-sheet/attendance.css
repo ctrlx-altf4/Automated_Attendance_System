@@ -2,8 +2,92 @@
     display:flex;
     flex-direction: row;
     height:100%;
-
 }
+.sheet-wrapper{
+    width:100%;
+    margin-top:9vh;
+    margin-left:3vw;
+
+ }
+ /*========================================
+    attendance-sheet.css
+=========================================*/
+.date-box{
+    margin-right: 20px;
+    border-radius:4px;
+    font-weight: bolder;
+}
+.fetch-btn{
+    width:20%;
+    height:6vh;
+    border-radius: 3px;
+    margin-bottom: 2vh;
+    background-color: #001a66;
+    border:none;
+    box-shadow: 2px 4px 4px 2px rgba(0, 0, 0, 0.2);
+    color:white;
+    font-size: 1em;
+}
+.fetch-btn:hover{
+    background-color:#00061a;
+    cursor: pointer;
+    box-shadow:5px 7px 7px 5px rgba(0, 0, 0, 0.2);
+  }
+.attendance-header{
+    display:flex;
+    flex-direction:row;
+}
+.depo-dropdown{
+    margin-top:2vh;
+    /* width:5%; */
+    height:5%;
+    margin-right:4px;
+}
+/*this one is needed even though it isn't explicitly defined. but implicitly falls under dropdown npm*/
+.Dropdown-root {
+    position: relative;
+}
+.status-field{
+    cursor: pointer;
+}
+.status-field:hover{
+    color:white;
+}
+.table-header{
+    background-color:#1C6EA4;
+    color:white;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+/* tool tip ko laagi*/
+a.tooltip {outline:none; margin-left:500px }
+a.tooltip:hover {text-decoration:none;} 
+a.tooltip span {
+    z-index:10;display:none; padding:14px 20px;
+    margin-top:60px; margin-left:-160px;
+    width:300px; line-height:16px;
+}
+a.tooltip:hover span{
+    display:inline; position:absolute; 
+    border:2px solid #FFF;  color:#EEE;
+    background:#333;
+}
+/*CSS3 extras*/
+a.tooltip span
+{
+    border-radius:2px;        
+    box-shadow: 0px 0px 8px 4px #666;
+    /*opacity: 0.8;*/
+}
+.indiAttendance{
+    width:40%;
+}
+
+.attendance-table{
+    width: 80%;
+}
+
 /*========================================
         adminNavbar.css
 ========================================*/
@@ -15,17 +99,18 @@
 /*=======================================
         Side-bar.css
 ===========================================*/
+
 .sidebar{
     background-color:#3c3c3c;
     width:17%;
     min-height:100vh;
-    border: 1px solid white;
-    box-shadow: 0 5px #999;
+    margin:0;
 }
 .sidebar-header{
     background-color:#282828;
     min-height:30vh;
 }
+
 .column{
     padding-top: 60px;
 }
@@ -61,28 +146,37 @@
     background-color: #202020;
    
 }
+.sidebar-ul{
+    padding-inline-start: 0px;
+    padding-inline-end: 0px;
+    margin-left:0px;
+    z-index:1;
+    overflow-x: hidden;
+    height:100%;
+}
 .sidebar-button{
     width: 100%;
     padding-top: 20px;
     padding-bottom: 20px;
-    background-color: transparent;
+    display:block;
+    text-decoration: none;
+    background-color:transparent;
     border: transparent;
     color: grey;
     text-align: left;
-  padding-left: 25px;
+    padding-left: 25px;
+}
+.sidebar-button:hover{
+    background-color: #ddd;
+    color:black;
+    width: 100%;
+    cursor: pointer;  
+}
+.active {
+    background-color:#0e0af0;
+    color:white;
 }
 
-.sidebar-button:hover {
-    background-color: #505050;
-    color:white;
-    width: 100%;
-}
-.sidebar-button::selection {
-    border:none;
-    background-color: #505050;
-    color:white;
-    width: 100%;
-}
 .icon{
    font-size: 24px;
 }
@@ -106,7 +200,7 @@
   .dropdown-content {
     display: none;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-   width: 100%;
+    width: 100%;
   }
   
   .dropdown-content a {
@@ -127,19 +221,11 @@
   }
 
 
-r
-.sidebar-ul{
-    padding-inline-start: 0px;
-    padding-inline-end: 0px;
-}
 
 /*=======================================
         Sheet.css
 ======================================*/
-/* .sheet-wrapper{
-    width:100%;
-    grid-area:sheet; 
-} */
+
 .sheet{
     display:flex;
     flex-direction: column;
@@ -152,9 +238,7 @@ r
     background:pink;
    
 }
-.navline{
-    margin-top:5%;
-}
+
 .row{
    float: left;  
    margin-top: 10%; 
@@ -165,40 +249,57 @@ r
       height: 20%;
       float: left;
 }
+
 .box{
     box-shadow: 2px 4px 4px 2px rgba(0, 0, 0, 0.2);
     border:1px solid white;
     float: left;
     margin-top: 1%;
-    margin-left: 30px;
     height: 17%;
     background-color: #5F9EA0;
     text-align: left;
-    width: 240px;
+    width: 22%;
     color: white;
+    margin-right:30px;
+    margin-bottom: 20px;
 }
+.box:hover{
+    box-shadow: 5px 7px 7px 5px rgba(13, 167, 115, 0.2);
+    border:1px solid grey;
+    height:100%;
+    background-color:#114b4d;
+    
+}
+/* .box:hover div.new-label span{
+    display: none;
+  }
+  .box:hover div.new-label:after{
+    content: 'ADD';
+  } */
+
 .boax{
     width: 100%;
-  padding-top: 5%;
+   padding-top: 5%;
    background-color: #00868B;
    border: none;
    padding-bottom: 5%;
    margin-top: 15%;
 }
 .m-box{
+    background-color:transparent;
     box-shadow: 2px 4px 4px 2px rgba(0, 0, 0, 0.2);
     border:1px solid white;
     float: left;
     margin-top: 50px;
-    margin-left: 30px;
-   height: 350px;
-    background-color: #f5f5f5;
+    height: 350px;
+    color:white;
+   
     text-align: center;
     width: 60%;
 }
 .chart{
     margin-top: 0%;
-    height: 40vh;
+    height: 35vh;
     float: left;
 }
 .box-button{
@@ -227,9 +328,68 @@ r
     float: left;
     margin-top: 50px;
     margin-left: 40px;
-   height: 350px;
+    height: 350px;
     background-color: #f5f5f5;
     text-align: center;
     width: 33%;
 }
 
+/*=================================
+    Modal.css
+===================================*/
+.modal{
+    width:100%;
+    height:100%;
+    background-color:rgba(0,0,0,0.7);
+    position: absolute;
+    display:flex;
+    justify-content: center;
+    
+  }
+  .modal-content{
+    width:500px;
+    height:300px;
+    background-color:white;
+    position: relative;
+    border-radius:4px;
+    padding:20px;
+    top: 25%;
+    text-align: center;
+    margin-left:20%;
+  }
+  .modal-btn{
+    width:40%;
+    height:6vh;
+    border-radius: 3px;
+    margin-bottom: 2vh;
+    background-color: #001a66;
+    border:none;
+    box-shadow: 2px 4px 4px 2px rgba(0, 0, 0, 0.2);
+    color:white;
+    font-size: 1em;
+  }
+  .modal-btn:hover{
+    background-color:#00061a;
+    cursor: pointer;
+    box-shadow:5px 7px 7px 5px rgba(0, 0, 0, 0.2);
+  }
+  .close{
+    position: absolute;
+    color: #aaaaaa;
+    top:0;
+    right:14px;
+    font-size:42px;
+    transform: rotate(45deg);
+    cursor: pointer;
+  }
+  .close:hover{
+    color: black;
+  }
+  .display-block {
+    display: block;
+  }
+  
+  .display-none {
+    display: none;
+  }
+  

@@ -1,12 +1,13 @@
-const mongoose= require('mongoos');
+const mongoose= require('mongoose');
 const schema = mongoose.Schema;
 
-var attendance = new schema({
-    date:{
-        type: date,
-        require:true
+var routineAttendance = new schema({
+    ref_id:{
+        type:String,
+        required:true
     },
-    attendance:{
-        
-    }
+   attendance:{}
+},{
+        collection: 'attendance7'
 })
+module.exports= mongoose.model('routineAttendance', routineAttendance)

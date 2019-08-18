@@ -10,12 +10,13 @@ class Attendance extends Component{
     constructor(props){
         super(props);
         this.state={
-            sheetUI:1
+            sheetUI:'dashboard'
 
         }
         this.updateUI = this.updateUI.bind(this);
     }
     updateUI=(num)=>{
+
         this.setState({
             sheetUI:num
         })
@@ -28,16 +29,17 @@ class Attendance extends Component{
             <div>
                  <Navbar/>
             <div className="attendance">
-                   
-
                     <SideBar
                         updateUI ={this.updateUI}
                     />
-                    <Sheet
-                        sheetUI ={this.state.sheetUI}
-                    />
+                    <div className="sheet-wrapper">
+                        <Sheet
+                        updateUI ={this.updateUI}
+                            sheetUI ={this.state.sheetUI}
+                        />
+                        </div>
                     </div>
-
+                    
             </div>
         )
     }

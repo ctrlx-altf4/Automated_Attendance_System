@@ -28,9 +28,9 @@
     "express": "^4.16.4",
     "mongoose": "^5.5.12",
     "multer": "^1.4.1",
+    "promise": "^8.0.3",
     "react-gesture-gallery": "^1.0.0",
     "react-gesture-responder": "^2.1.0",
     "react-table": "^6.10.0"
-
   }
 }

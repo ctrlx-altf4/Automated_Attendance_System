@@ -9,6 +9,7 @@ class Register extends Component{
         super(props)
 
         this.state={
+            rollNo:'',
             firstName: '',
             lastName:'',
             email:'',
@@ -31,6 +32,7 @@ class Register extends Component{
     }
    uploadDataFromParent =(ImageList)=>{
        this.state.imageList=ImageList;
+       this.state.imageList["rollNo"]= this.state.rollNo;
        this.state.imageList["firstName"]= this.state.firstName;
        this.state.imageList["lastName"]= this.state.lastName;
        this.state.imageList["email"]= this.state.email;

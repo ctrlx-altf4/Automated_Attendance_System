@@ -4,7 +4,7 @@ const {spawn} = require('child_process');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const fs = require('fs');
-
+var Promise = require('promise');
 
 //-------------------------Database Setup-----------------------------
 const mongoose = require('mongoose');
@@ -12,6 +12,7 @@ const db = require('./config/db');
 
 //importing model 
 const studentModel = require('./models/student');
+const routineAttendanceModel = require('./models/routineAttendance');
 const imageModel= require('./models/trainingImage');
 
 //connecting our application to mongodb
@@ -41,6 +42,7 @@ const app = express();
 const port = process.env.PORT ||5000;
 
 app.use(express.static('collection'));
+
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
 
@@ -76,11 +78,12 @@ app.listen(port, ()=>{
 
 app.post('/api/images',(req,res)=>{
     console.log(req.body.lastName)
-    var numImage=Math.min(15,Object.keys(req.body).length-6);
+    var numImage=Math.min(15,Object.keys(req.body).length-7);
+    console.log(numImage);
     var i=1;
     function saveImage(){
         let base64Image = req.body["user"+i].split(';base64').pop();
-        var dir = './images/'+ req.body.firstName +" "+ req.body.lastName;
+        var dir = './images/'+ req.body.rollNo;
         if(!fs.existsSync(dir)){
             fs.mkdirSync(dir);
         }
@@ -95,10 +98,10 @@ app.post('/api/images',(req,res)=>{
             }    
          })
     }
-    saveImage();
-          
+    saveImage()
                 var i=1;
                 var studentDetails={
+                    rollNo: req.body.rollNo,
                     firstName: req.body.firstName,
                     lastName: req.body.lastName,
                     email: req.body.email,
@@ -109,17 +112,11 @@ app.post('/api/images',(req,res)=>{
 
 const StudentModel = new studentModel(studentDetails);
 StudentModel.save();
-                //     /* commented only for heroku*/
-                //         //  /************ Saving to Database ***************/  //
-                //    studentModel.create(studentDetails,(err,created)=>{
-                //                 console.log('created');
-                //         })
- 
     
 })
 
 
-
+//Students data pathaauxa esle
 app.get('/retrieval',(req, res)=>{
     studentModel.find(function(err,data){
         if(err){
@@ -130,6 +127,8 @@ app.get('/retrieval',(req, res)=>{
         }
     })
 })
+
+//individual student detail pathaauxa esle
 app.get('/retrieval/:id',(req,res)=>{
     let id =req.params.id;
     studentModel.findById(id, function(err,data){
@@ -141,62 +140,163 @@ app.get('/retrieval/:id',(req,res)=>{
         }
     })
 })
-var data= [{'name': '504','status':'P', 'url': {'url1': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-32-975355.png', 'url2': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-064118.png', 'url3': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-186789.png', 'url4': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-435125.png', 'url5': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-532863.png', 'url6': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-609657.png', 'url7': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-690441.png', 'url8': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-782196.png', 'url9': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-955732.png', 'url10': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-34-457388.png', 'url11': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-34-839366.png', 'url12': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-35-092689.png', 'url13': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-35-288166.png', 'url14': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-35-641221.png', 'url15': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-35-874598.png', 'url16': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-062095.png', 'url17': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-159834.png', 'url18': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-240617.png', 'url19': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-318410.png', 'url20': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-400191.png', 'url21': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-491945.png', 'url22': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-578714.png', 'url23': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-734296.png', 'url24': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-961687.png', 'url25': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-37-051448.png', 'url26': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-37-356631.png'}},
-{'name': '501','status':'P', 'url': {'url1': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-32-975355.png', 'url2': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-064118.png', 'url3': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-186789.png', 'url4': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-435125.png', 'url5': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-532863.png', 'url6': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-609657.png', 'url7': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-690441.png', 'url8': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-782196.png', 'url9': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-955732.png', 'url10': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-34-457388.png', 'url11': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-34-839366.png', 'url12': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-35-092689.png', 'url13': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-35-288166.png', 'url14': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-35-641221.png', 'url15': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-35-874598.png', 'url16': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-062095.png', 'url17': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-159834.png', 'url18': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-240617.png', 'url19': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-318410.png', 'url20': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-400191.png', 'url21': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-491945.png', 'url22': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-578714.png', 'url23': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-734296.png', 'url24': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-961687.png', 'url25': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-37-051448.png', 'url26': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-37-356631.png'}},
-{'name': '505','status':'P', 'url': {'url1': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-32-975355.png', 'url2': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-064118.png', 'url3': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-186789.png', 'url4': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-435125.png', 'url5': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-532863.png', 'url6': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-609657.png', 'url7': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-690441.png', 'url8': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-782196.png', 'url9': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-955732.png', 'url10': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-34-457388.png', 'url11': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-34-839366.png', 'url12': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-35-092689.png', 'url13': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-35-288166.png', 'url14': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-35-641221.png', 'url15': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-35-874598.png', 'url16': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-062095.png', 'url17': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-159834.png', 'url18': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-240617.png', 'url19': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-318410.png', 'url20': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-400191.png', 'url21': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-491945.png', 'url22': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-578714.png', 'url23': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-734296.png', 'url24': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-961687.png', 'url25': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-37-051448.png', 'url26': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-37-356631.png'}},
-{'name': '507','status':'P', 'url': {'url1': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-32-975355.png', 'url2': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-064118.png', 'url3': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-186789.png', 'url4': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-435125.png', 'url5': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-532863.png', 'url6': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-609657.png', 'url7': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-690441.png', 'url8': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-782196.png', 'url9': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-955732.png', 'url10': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-34-457388.png', 'url11': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-34-839366.png', 'url12': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-35-092689.png', 'url13': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-35-288166.png', 'url14': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-35-641221.png', 'url15': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-35-874598.png', 'url16': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-062095.png', 'url17': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-159834.png', 'url18': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-240617.png', 'url19': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-318410.png', 'url20': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-400191.png', 'url21': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-491945.png', 'url22': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-578714.png', 'url23': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-734296.png', 'url24': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-961687.png', 'url25': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-37-051448.png', 'url26': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-37-356631.png'}},
-{'name': '506','status':'P', 'url': {'url1': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-32-975355.png', 'url2': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-064118.png', 'url3': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-186789.png', 'url4': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-435125.png', 'url5': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-532863.png', 'url6': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-609657.png', 'url7': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-690441.png', 'url8': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-782196.png', 'url9': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-955732.png', 'url10': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-34-457388.png', 'url11': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-34-839366.png', 'url12': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-35-092689.png', 'url13': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-35-288166.png', 'url14': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-35-641221.png', 'url15': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-35-874598.png', 'url16': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-062095.png', 'url17': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-159834.png', 'url18': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-240617.png', 'url19': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-318410.png', 'url20': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-400191.png', 'url21': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-491945.png', 'url22': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-578714.png', 'url23': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-734296.png', 'url24': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-961687.png', 'url25': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-37-051448.png', 'url26': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-37-356631.png'}},
-{'name': '508','status':'P', 'url': {'url1': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-32-975355.png', 'url2': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-064118.png', 'url3': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-186789.png', 'url4': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-435125.png', 'url5': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-532863.png', 'url6': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-609657.png', 'url7': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-690441.png', 'url8': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-782196.png', 'url9': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-955732.png', 'url10': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-34-457388.png', 'url11': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-34-839366.png', 'url12': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-35-092689.png', 'url13': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-35-288166.png', 'url14': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-35-641221.png', 'url15': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-35-874598.png', 'url16': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-062095.png', 'url17': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-159834.png', 'url18': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-240617.png', 'url19': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-318410.png', 'url20': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-400191.png', 'url21': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-491945.png', 'url22': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-578714.png', 'url23': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-734296.png', 'url24': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-961687.png', 'url25': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-37-051448.png', 'url26': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-37-356631.png'}},
-{'name': '509','status':'P', 'url': {'url1': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-32-975355.png', 'url2': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-064118.png', 'url3': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-186789.png', 'url4': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-435125.png', 'url5': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-532863.png', 'url6': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-609657.png', 'url7': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-690441.png', 'url8': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-782196.png', 'url9': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-955732.png', 'url10': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-34-457388.png', 'url11': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-34-839366.png', 'url12': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-35-092689.png', 'url13': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-35-288166.png', 'url14': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-35-641221.png', 'url15': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-35-874598.png', 'url16': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-062095.png', 'url17': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-159834.png', 'url18': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-240617.png', 'url19': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-318410.png', 'url20': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-400191.png', 'url21': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-491945.png', 'url22': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-578714.png', 'url23': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-734296.png', 'url24': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-961687.png', 'url25': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-37-051448.png', 'url26': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-37-356631.png'}},
-{'name': '510','status':'P', 'url': {'url1': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-32-975355.png', 'url2': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-064118.png', 'url3': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-186789.png', 'url4': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-435125.png', 'url5': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-532863.png', 'url6': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-609657.png', 'url7': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-690441.png', 'url8': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-782196.png', 'url9': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-955732.png', 'url10': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-34-457388.png', 'url11': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-34-839366.png', 'url12': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-35-092689.png', 'url13': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-35-288166.png', 'url14': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-35-641221.png', 'url15': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-35-874598.png', 'url16': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-062095.png', 'url17': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-159834.png', 'url18': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-240617.png', 'url19': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-318410.png', 'url20': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-400191.png', 'url21': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-491945.png', 'url22': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-578714.png', 'url23': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-734296.png', 'url24': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-961687.png', 'url25': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-37-051448.png', 'url26': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-37-356631.png'}},
-{'name': '520','status':'P', 'url': {'url1': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-32-975355.png', 'url2': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-064118.png', 'url3': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-186789.png', 'url4': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-435125.png', 'url5': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-532863.png', 'url6': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-609657.png', 'url7': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-690441.png', 'url8': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-782196.png', 'url9': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-33-955732.png', 'url10': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-34-457388.png', 'url11': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-34-839366.png', 'url12': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-35-092689.png', 'url13': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-35-288166.png', 'url14': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-35-641221.png', 'url15': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-35-874598.png', 'url16': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-062095.png', 'url17': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-159834.png', 'url18': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-240617.png', 'url19': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-318410.png', 'url20': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-400191.png', 'url21': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-491945.png', 'url22': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-578714.png', 'url23': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-734296.png', 'url24': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-36-961687.png', 'url25': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-37-051448.png', 'url26': 'C:\\Users\\hp\\Desktop\\EigenFace\\tmp\\2019-07-30\\Ashish Paudel\\13-23-37-356631.png'}},
-{'name': '521', 'url': {}},
-{'name': '522', 'url': {}},
- {'name': '523', 'url': {}}]
-// var data = [{'name': '504','status':'P', 'url': {'url1': 'C:\\Users\\User\\Documents\\Codes\\python\\Machine learning\\Eigenface\\tmp\\2019-07-28\\Pragya\\20-38-45-241414.png', 'url2': 'C:\\Users\\User\\Documents\\Codes\\python\\Machine learning\\Eigenface\\tmp\\2019-07-28\\Pragya\\20-38-45-706185.png', 'url3': 'C:\\Users\\User\\Documents\\Codes\\python\\Machine learning\\Eigenface\\tmp\\2019-07-28\\Pragya\\20-38-45-763033.png', 'url4': 'C:\\Users\\User\\Documents\\Codes\\python\\Machine learning\\Eigenface\\tmp\\2019-07-28\\Pragya\\20-38-46-452697.png', 'url5': 'C:\\Users\\User\\Documents\\Codes\\python\\Machine learning\\Eigenface\\tmp\\2019-07-28\\Pragya\\20-38-46-507551.png', 'url6': 'C:\\Users\\User\\Documents\\Codes\\python\\Machine learning\\Eigenface\\tmp\\2019-07-28\\Pragya\\20-38-46-562404.png', 'url7': 'C:\\Users\\User\\Documents\\Codes\\python\\Machine learning\\Eigenface\\tmp\\2019-07-28\\Pragya\\20-38-46-623242.png', 'url8': 'C:\\Users\\User\\Documents\\Codes\\python\\Machine learning\\Eigenface\\tmp\\2019-07-28\\Pragya\\20-38-46-683083.png', 'url9': 'C:\\Users\\User\\Documents\\Codes\\python\\Machine learning\\Eigenface\\tmp\\2019-07-28\\Pragya\\20-38-46-736937.png'}},
-//     {'name':'503','status':'P','url':{'url1':'C:\\url1', 'url2':'C:\\url2'}},
-//     {'name':'501','status':'P','url':{'url1':'C:\\url1', 'url2':'C:\\url2'}},
-//     {'name':'523','status':'P','url':{'url1':'C:\\url1', 'url2':'C:\\url2'}},
-//     {'name':'540','status':'P','url':{'url1':'C:\\url1', 'url2':'C:\\url2'}},
-//     {'name':'513','status':'P','url':{'url1':'C:\\url1', 'url2':'C:\\url2'}},
-//     {'name':'543','status':'P','url':{'url1':'C:\\url1', 'url2':'C:\\url2'}}];
 
-fs.readFile('2019-07-30.json','utf-8',function(err,data){
-    //console.log(data);
-})
+
+/*============================================================================================
+to connect the received roll no from machine learning to its database information
+============================================================================================*/
+let data;
+var id;
+function run(id,call){
+    try{
+        // let today = new Date();
+        // var date = today.getFullYear()+'-'+ ("0"+(today.getMonth()+1)).slice(-2)+'-'+("0"+today.getDate()).slice(-2);
+        // console.log(date);
+        if(fs.existsSync('C:/Users/hp/Desktop/Project/Neema/Face-recognition/client/tmp/json/'+id+'.json')){
+            //nameFinder of received attendee list
+            var name = [];
     
-var j;
- data=data.sort(function(a,b){
-    return a.name-b.name;
-})
-
-var length= data.length;
-var s=0;
-for(k=501; k<=548; k++){
-   if(s<length){
-       if(k==data[s].name){
-           s++;
-       }
-       else{
-           data.push({'name': k,'status':'A'})
-       };
-   }
-   else{
-       data.push({'name':k,'status':'A'})
-   };
+            function nameFinder(studentModel, value,index, callback){
+                studentModel.find({ rollNo: value}, function(err,result){
+                    if (err) {
+                        console.log(err);
+                    } 
+                    name[0]= result;
+                    if(index===null){
+                        data.push({'name': value,'status':'A','firstName':name[0][0].firstName+' '+name[0][0].lastName,'ref_id':name[0][0]._id})
+                    }
+                    else{
+                        data[index].firstName = name[0][0].firstName+ ' '+ name[0][0].lastName;
+                       data[index].ref_id =name[0][0]._id;
+                    }
+                   
+                    callback();
+                    if(value==547){
+                        call();
+                    }
+                });
+            }
+    
+            let str=fs.readFileSync('C:/Users/hp/Desktop/Project/Neema/Face-recognition/client/tmp/json/'+id+'.json','utf-8')
+            let obj = str.replace(/\'/g,'"');
+            data = JSON.parse(obj);
+            data=data.sort(function(a,b){
+                return a.name-b.name;
+            })
+            
+            var length= data.length;
+            var s=0;
+            for(k=501; k<=548; k++){
+            if(s<length){
+                if(k==data[s].name){
+                    // data.splice(0,1);
+                    nameFinder(studentModel,k,s, function(){
+                        
+                    });
+                    s++;
+                }
+                else{  
+                    nameFinder(studentModel,k,null, function(){
+                        
+                     });
+                    
+                    // data.push({'name': k,'status':'A'})
+                };
+            }
+            else{
+                nameFinder(studentModel,k,null, function(){
+                    
+                });
+               
+            };
+            
+        }
+        }
+        else{
+            console.log("new file not created")
+        }
+    }
+    catch(err){
+        console.error(err);
+    }
 }
 
-app.get('/todaysAttendance',(req,res)=>{
+/*============================================================================================*/
+
+
+app.get('/todaysAttendance/:id',(req,res)=>{
+    console.log("todays")
+    run(req.params.id,function(){
+        res.json(data);
+    })
     
-    res.send(data);
 })
+
+
+
+
+app.post('/verifiedData',(req,res)=>{
+    console.log(req.body);
+    let verifiedData= req.body;
+    verifiedData = verifiedData.sort(function(a,b){
+        return a.name-b.name;
+    });
+    var RoutineAttendanceModel = new routineAttendanceModel({ref_id:date, attendance:verifiedData});
+    RoutineAttendanceModel.markModified('ref_id')
+        RoutineAttendanceModel.markModified('attendance')
+        RoutineAttendanceModel.save(function(err,result){
+            if(err) console.log(err);
+    })   
+})
+
+
+let indiAttendance=[];
+function attendanceKeeper(routineAttendanceModel, i,j, callback){
+    
+    routineAttendanceModel.find({ref_id:'2019-08-0'+i}, function(err,result){
+        if(err){
+    
+        }
+        if(!result.length)
+        {
+            console.log('no data')
+        }
+        else{
+            indiAttendance[j]['attendance'].push({'Date':result[0].ref_id,
+            'status': result[0].attendance[j].status});
+            console.log(j+'=>'+result[0].ref_id+" => "+result[0].attendance[j].status);
+        }
+      callback();
+        
+    })
+}
+for(j=0;j<48;j++){
+    indiAttendance.push({rollNo:j+501})
+    indiAttendance[j]['attendance']=[];
+    for(i=0;i<=30; i++){
+        attendanceKeeper(routineAttendanceModel,i,j, function(){          
+        });
+    }
+}
+
+app.get('/indiAttendance',(req,res)=>{
+    res.json(indiAttendance);
+})
+
+
+
+
+
+
+/*===============================================
+        ML-Application interaciton
+===============================================*/
 app.get('/train',(req,res)=>{
     function runScript(){
         console.log("train");
         return spawn('python',[
             "-u",
-            "C:/Users/hp/Desktop/Project/Neema/Face-recognition/etc/EigenFace/train_model.py"
-            // path.join(__dirname,'script.py'),          
+            "C:/Users/hp/Desktop/Project/Neema/Face-recognition/etc/EigenFace/train_model.py"      
         ])
         
         }    
@@ -221,41 +321,12 @@ app.get('/predict',(req,res)=>{
     const subprocess = runScript();
 
     subprocess.stdout.on('data', (data)=>{
+        // if(data=='prediction complete'){
+        //     console.log('yay');
+        //     // res.send('complete vayexa');
+        // }
         console.log(`data:${data}`);
     });
-   
     res.send();
+   
 })
-
-app.get('/collect',(req,res)=>{
-    function runScript(){
-        console.log("collect");
-        return spawn('python',[
-            "-u",
-            "C:/Users/hp/Desktop/Project/Neema/Face-recognition/collectData.py"
-            // path.join(__dirname,'script.py'),          
-        ]);
-        
-        }    
-        const subprocess = runScript();
-    
-        subprocess.stdout.on('data', (data)=>{
-            console.log(`data:${data}`);
-        });
-       
-        res.send();
-})
-
-
-
-
-
-// subprocess.stderr.on('data',(data)=>{
-//     console.log(`error:${data}`);
-// });
-// subprocess.stderr.on('close',()=>{
-//     console.log("closed");
-// })
-//console.log("fuck");
-
-

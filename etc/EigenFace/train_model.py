@@ -1,7 +1,7 @@
 from face_recognition import EigenFace
 import sys
 
-datasetPath = "C:/Users/hp/Desktop/Project/images"
+datasetPath = "C:/Users/hp/Desktop/Project/images/images"
 img_x = 200
 img_y = 200
 

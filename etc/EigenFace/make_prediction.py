@@ -41,12 +41,14 @@ t2 = time.time()
 #runtime value from console
 #runtime = int(sys.argv[1])
 runtime = 5
+root_directory = "C:/Users/hp/Desktop/Project/Neema/Face-recognition/client"
+
 
 #Create missing directories
-if not os.path.exists(join(root_directory,"tmp")):
-    os.makedirs(join(root_directory,"tmp"))
-if not os.path.exists(join(root_directory, "tmp", attendance_date)):
-    os.makedirs(join(root_directory, "tmp", attendance_date))
+if not os.path.exists(root_directory+"/tmp"):
+    os.makedirs(join(root_directory+"/tmp"))
+if not os.path.exists(root_directory+ "/tmp/"+ attendance_date):
+    os.makedirs(root_directory+ "/tmp/"+ attendance_date)
 
 while t2-t1 < runtime:
     ret, frame = cap.read()
@@ -55,7 +57,7 @@ while t2-t1 < runtime:
     if len(face)!=0:
         y_pred = model.image_predict(face)
         
-        if not os.path.exists(join(root_directory,"tmp",attendance_date,y_pred)):
+        if not os.path.exists(root_directory+"/tmp/"+attendance_date+"/"+y_pred):
             os.makedirs(root_directory+"/tmp/"+attendance_date+"/"+y_pred)
         #set to 1 if not already present otherwise increase count
         try:
@@ -63,7 +65,7 @@ while t2-t1 < runtime:
         except:
             predictedNames[y_pred]=1
 
-        path_to_image = os.path.join(root_directory,'tmp',attendance_date,y_pred,datetime.datetime.now().strftime("%H-%M-%S-%f")+'.png')
+        path_to_image = os.path.join(root_directory+'/tmp/'+attendance_date+'/'+y_pred+'/'+datetime.datetime.now().strftime("%H-%M-%S-%f")+'.png')
         
         print(t2-t1)
         print(path_to_image)
@@ -85,21 +87,21 @@ if not os.path.exists(root_directory+"/tmp/json"):
     os.makedirs(root_directory+"/tmp/json")
 
 json_list = []
-load_root = join(root_directory, "tmp")
-save_root = join(root_directory, "tmp", "json")
+load_root = join(root_directory+ "/tmp")
+save_root = join(root_directory+ "/tmp/json")
 
 for num,dirr in enumerate(listdir(join(load_root, attendance_date))):
     user_json = {}
-    user_json['name'] = dirr
-    user_json['status'] = 'P'
+    user_json["name"] = dirr
+    user_json["status"] = "P"
     
     tmp_dict = {}
     data_path = join(load_root, attendance_date, dirr)
     only_images = [f for f in listdir(data_path) if isfile(join(data_path,f))]
   
     for i,image_name in enumerate(only_images):
-        tmp_dict['url'+str(i+1)] = join(data_path, image_name)
-    user_json['url'] = tmp_dict
+        tmp_dict["url"+str(i+1)] = join(data_path, image_name)
+    user_json["url"] = tmp_dict
     json_list.append(user_json)
 
 with open(join(save_root,attendance_date)+".json", "w+") as f:

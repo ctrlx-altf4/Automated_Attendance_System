@@ -17,6 +17,13 @@ class UserDetails extends Component{
                 <div class="form-body">
                          <form onSubmit={this.props.handleSubmit}>
                         <div className="input-field">
+                        <label>
+                             <input className=""
+                                    name ="rollNo" 
+                                    type="text" value={this.props.rollNo}    
+                                    onChange={this.props.handleChange}/>
+                                    <span>rollNo</span>
+                            </label>
                             <label>
                              <input className=""
                                     name ="firstName" 

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import Webcam from 'react-webcam'
-import axios from 'axios'
+
 import './camera.css'
 
 class Camera extends Component{

@@ -54,5 +54,25 @@
     -->
    
   </body>
+  <script>
+    // Add active class to the current button (highlight it)
+    var btns = document.getElementsByClassName("sidebar-button");
+        
+        for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener("click", function() {
+        var current = document.getElementsByClassName("active");
+        current[0].className = current[0].className.replace(" active", "");
+        this.className += " active";
+        });
+        }
+        let box=document.getElementsByClassName("yes") // the box class is below in dashboard section
+        box.addEventListener("click",function(){
+          alert("fuck");
+        })
+        let modal= document.getElementsByClassName("bg-modal") // the box-modal class is in app.js
+        // box.onclick=function(){
+        //   alert("fuck");
+        // }
+  </script>
   
 </html>

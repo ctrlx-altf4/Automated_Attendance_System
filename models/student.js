@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 const schema = mongoose.Schema;
 
 var student = new schema({
+    rollNo:{
+        type:Number,
+        required:true
+    },
     firstName:{
         type: String,
         required:true

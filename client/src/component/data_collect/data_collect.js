@@ -13,15 +13,16 @@ class DataCollect extends Component{
         // .then(res=>res.json())
         // .then(datas=> this.setState({datas}, ()=>{console.log('fetched', datas)}));
     }
-    data_collect_py = (e)=>{
-        fetch('/predict');
+    predict_py = (e)=>{
+        alert("Attendance Started..")
+        fetch('/predict').then(res=> console.log(res));
     }
     render(){
         return(
             <div>
-                <button onClick={this.data_collect_py}>la esle</button>
+                <button className="modal-btn" onClick={this.predict_py}><i class="fas fa-video">&nbsp; &nbsp; Start Attendance</i></button>
                 <script>
-                    const make_prediction_py()=> console.log("fuck");
+                   
                 </script>
             </div>
         )
